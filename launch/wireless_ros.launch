@@ -1,0 +1,57 @@
+<launch>
+  <!-- 全局参数 -->
+  <param name="/wireless_ros/influxdb_url" value="http://localhost:8086" />
+  <param name="/wireless_ros/influxdb_token" value="LbUOm57nYdJp0trGuaI4TcSTvzeo5yJYsj5GtEC-EvkNmEFC35t4HyrMwWBanDhVRZmVW7iTqqXGTGB82DmG2g==" />
+  <param name="/wireless_ros/influxdb_org" value="my_org" />
+  <param name="/wireless_ros/influxdb_bucket" value="my_bucket" />
+  
+  <!-- 启动Hub -->
+  <node name="wireless_ros_hub" pkg="wireless_ros" type="hub.py" output="screen">
+    <param name="check_interval" value="1.0" />
+    <param name="recovery_enabled" value="true" />
+    <param name="priority_management_enabled" value="true" />
+    <param name="resource_conflict_resolution" value="true" />
+    <param name="global_optimization_interval" value="10.0" />
+  </node>
+
+  <!-- 启动RadioInformationEngine -->
+  <node name="radio_info_engine" pkg="wireless_ros" type="radio_information_engine.py" output="screen">
+    <param name="query_interval" value="0.1" />
+    <param name="prediction_horizon" value="10" />
+    <param name="history_window_size" value="50" />
+    <param name="prediction_enabled" value="true" />
+    <param name="anomaly_detection_enabled" value="true" />
+    <param name="measurement_interval" value="0.1" />
+  </node>
+
+  <!-- 启动CrossDomainEngine -->
+  <node name="cross_domain_engine" pkg="wireless_ros" type="cross_domain_engine.py" output="screen">
+    <param name="update_interval" value="0.2" />
+    <param name="fusion_window_size" value="10" />
+    <param name="enable_map_enhancement" value="true" />
+    <param name="enable_path_optimization" value="true" />
+    <param name="enable_sensor_adaptation" value="true" />
+    <param name="enable_task_criticality" value="true" />
+  </node>
+
+  <!-- 启动PhysicalAdaptiveEngine -->
+  <node name="physical_adaptive_engine" pkg="wireless_ros" type="physical_adaptive_engine.py" output="screen">
+    <param name="update_interval" value="0.1" />
+    <param name="learning_rate" value="0.1" />
+    <param name="exploration_rate" value="0.2" />
+    <param name="min_exploration_rate" value="0.05" />
+    <param name="max_harq_retx" value="4" />
+    <param name="enable_rtt_measurement" value="true" />
+    <param name="enable_adaptive_harq" value="true" />
+    <param name="enable_predictive_coding" value="true" />
+    <param name="use_reinforcement_learning" value="true" />
+  </node>
+
+  <!-- 可以在这里添加需要的Cell节点，根据实际情况配置 -->
+  <!-- 
+  <node name="camera_cell" pkg="wireless_ros" type="camera_cell.py" output="screen">
+    <param name="frame_rate" value="30" />
+    <param name="resolution" value="640x480" />
+  </node>
+  -->
+</launch>
