@@ -1,0 +1,119 @@
+{
+    "rrmPolicyRatio": [
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 1,
+            "min_ratio": 20,
+            "max_ratio": 50
+        },
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 2,
+            "min_ratio": 0,
+            "max_ratio": 100
+        },
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 3,
+            "min_ratio": 40,
+            "max_ratio": 70
+        }
+    ],
+    "up_rrmPolicyRatio": [
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 1,
+            "min_ratio": 10,
+            "max_ratio": 50
+        },
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 2,
+            "min_ratio": 20,
+            "max_ratio": 60
+        },
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 3,
+            "min_ratio": 30,
+            "max_ratio": 70
+        },
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 4,
+            "min_ratio": 40,
+            "max_ratio": 80
+        },
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 5,
+            "min_ratio": 50,
+            "max_ratio": 90
+        }
+    ],
+    "subSlicePolicy": {
+        "enabled": true,
+        "subSlices": [
+            {
+                "sub_slice_id": 1,
+                "parent_slice": 1,
+                "min_ratio": 10,
+                "max_ratio": 50,
+                "priority": 1
+            },
+            {
+                "sub_slice_id": 2,
+                "parent_slice": 1,
+                "min_ratio": 20,
+                "max_ratio": 60,
+                "priority": 1
+            },
+            {
+                "sub_slice_id": 3,
+                "parent_slice": 1,
+                "min_ratio": 30,
+                "max_ratio": 70,
+                "priority": 1
+            },
+            {
+                "sub_slice_id": 4,
+                "parent_slice": 1,
+                "min_ratio": 40,
+                "max_ratio": 80,
+                "priority": 1
+            },
+            {
+                "sub_slice_id": 5,
+                "parent_slice": 1,
+                "min_ratio": 50,
+                "max_ratio": 90,
+                "priority": 1
+            }
+        ]
+    },
+    "ueSliceMapping": {
+        "0x1234": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true
+        },
+        "0x5678": {
+            "target_slice": 1,
+            "target_sub_slice": 2,
+            "force_slice": true
+        },
+        "0x8a93": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true
+        }
+    }
+}

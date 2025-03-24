@@ -1,0 +1,244 @@
+{
+    "Slice_Config": 1234,
+    "rrmPolicyRatio": [
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 1,
+            "min_ratio": 0,
+            "max_ratio": 100
+        },
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 2,
+            "min_ratio": 0,
+            "max_ratio": 100
+        },
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 3,
+            "min_ratio": 0,
+            "max_ratio": 100
+        }
+    ],
+    "up_rrmPolicyRatio": [
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 1,
+            "min_ratio": 0,
+            "max_ratio": 100
+        },
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 2,
+            "min_ratio": 10,
+            "max_ratio": 90
+        },
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 3,
+            "min_ratio": 20,
+            "max_ratio": 80
+        },
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 4,
+            "min_ratio": 30,
+            "max_ratio": 70
+        },
+        {
+            "sST": 1,
+            "sD_flag": 0,
+            "sD": 5,
+            "min_ratio": 40,
+            "max_ratio": 60
+        }
+        
+    ],
+    "subSlicePolicy": {
+        "enabled": true,
+        "subSlices": [
+            {
+                "sub_slice_id": 1,
+                "parent_slice": 1,
+                "min_ratio": 0,
+                "max_ratio": 100,
+                "priority": 1
+            },
+            {
+                "sub_slice_id": 2,
+                "parent_slice": 1,
+                "min_ratio": 10,
+                "max_ratio": 90,
+                "priority": 1
+            }
+            ,
+            {
+                "sub_slice_id": 3,
+                "parent_slice": 1,
+                "min_ratio": 20,
+                "max_ratio": 80,
+                "priority": 1
+            }
+            ,
+            {
+                "sub_slice_id": 4,
+                "parent_slice": 1,
+                "min_ratio": 30,
+                "max_ratio": 70,
+                "priority": 1
+            }
+            ,
+            {
+                "sub_slice_id": 5,
+                "parent_slice": 1,
+                "min_ratio": 40,
+                "max_ratio": 60,
+                "priority": 1
+            }
+        ]
+    },
+    "ueSliceMapping": {
+        "0x1234": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true
+        },
+        "0x5678": {
+            "target_slice": 1,
+            "target_sub_slice": 2,
+            "force_slice": true
+        },
+        "0x8a93": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true
+        },
+        "0xe3ac": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0x9108": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0xc9ca": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0x6622": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0x3e94": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0x25e": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true
+        },
+        "0x5666": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0x6d00": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0x7c76": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0x9238": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0xd83": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true
+        },
+        "0x10a5": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0x82fd": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0x402": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true
+        },
+        "0xa4f3": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0x9abd": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0x328e": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0x6156": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true
+        },
+        "0x5a73": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true,
+            "up_target_sub_slice": 1
+        },
+        "0x5ef": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true
+        },
+        "0x561e": {
+            "target_slice": 1,
+            "target_sub_slice": 1,
+            "force_slice": true
+        }
+    }
+}

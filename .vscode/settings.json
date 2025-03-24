@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "mac_proto.h": "c",
+        "vendor_ext.h": "c",
+        "nr_common.h": "c",
+        "json.h": "c",
+        "softmodem-common.h": "c",
+        "nr_rlc_oai_api.h": "c"
+    }
+}
