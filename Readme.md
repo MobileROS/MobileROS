@@ -1,4 +1,4 @@
-# WirelessROS （Implementation Details is in the [details.md](./details.md) file）
+# WirelessROS (Implementation Details are in the [details.md](./details.md) File)
 
 ## An Open Source Wireless-Native Robot Operating System
 
@@ -35,12 +35,72 @@ Distributed functional units implementing domain-specific operations (sensors, c
 ### Prerequisites
 
 - Ubuntu 20.04 LTS or higher
-- ROS Noetic or ROS2 Humble
 - Python 3.8+
 - CMake 3.10+
 - g++ 9.3.0+
 - InfluxDB 2.0+
 - ZeroMQ libraries
+
+### Installing ROS Noetic
+
+```bash
+# Setup sources.list
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+# Setup keys
+sudo apt install curl -y
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+
+# Update package index
+sudo apt update
+
+# Install ROS Noetic (Desktop Full)
+sudo apt install ros-noetic-desktop-full -y
+
+# Initialize rosdep
+sudo apt install python3-rosdep -y
+sudo rosdep init
+rosdep update
+
+# Environment setup
+echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+
+# Install dependencies for building packages
+sudo apt install python3-rosinstall python3-rosinstall-generator python3-wstool build-essential -y
+```
+
+### Installing ROS 2 Humble (Ubuntu 22.04)
+
+```bash
+# Locale settings
+sudo apt update && sudo apt install locales -y
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# Setup sources
+sudo apt install software-properties-common -y
+sudo add-apt-repository universe -y
+
+# Add ROS 2 GPG key
+sudo apt update && sudo apt install curl -y
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+
+# Add repository to sources list
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+
+# Update and install ROS 2 Humble
+sudo apt update
+sudo apt install ros-humble-desktop -y
+
+# Install development tools
+sudo apt install ros-dev-tools -y
+
+# Environment setup
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
 
 ### Installing WirelessROS
 
@@ -638,7 +698,6 @@ We welcome contributions to WirelessROS! Please check our [contribution guidelin
 ## License
 
 WirelessROS is released under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 
 ## Acknowledgments
 
