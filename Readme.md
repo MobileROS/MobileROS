@@ -694,11 +694,11 @@ if __name__ == '__main__':
 
 ## Contribution
 
-We welcome contributions to WirelessROS! Please check our [contribution guidelines](CONTRIBUTING.md) for more information.
+We welcome contributions to WirelessROS!
 
 ## License
 
-WirelessROS is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+WirelessROS is released under the MIT License.
 
 ## Acknowledgments
 
