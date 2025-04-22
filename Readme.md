@@ -1,13 +1,13 @@
-# WirelessROS 
+# MobileROS 
 ### Implementation Details are in the [details.md](./details.md) File
-### Code link: https://github.com/WirelessROS/WirelessROS
+### Code link: https://github.com/MobileROS/MobileROS
 ### If you encounter any issues during installation or running, please open an issue, and I will respond within one day.
 
 ## An Open Source Wireless-Native Robot Operating System
 
-WirelessROS is a revolutionary framework that transforms wireless communication from a traditional external module into a transparent core resource within the robot operating system. It enables unprecedented capabilities including communication quality awareness, cross-domain knowledge fusion, and dynamic resource allocation, surpassing functionalities available in current ROS-based systems.
+MobileROS is a revolutionary framework that transforms wireless communication from a traditional external module into a transparent core resource within the robot operating system. It enables unprecedented capabilities including communication quality awareness, cross-domain knowledge fusion, and dynamic resource allocation, surpassing functionalities available in current ROS-based systems.
 
-![WirelessROS Architecture](./Arch.png)
+![MobileROS Architecture](./Arch.png)
 
 ## Features
 
@@ -19,7 +19,7 @@ WirelessROS is a revolutionary framework that transforms wireless communication 
 
 ## System Architecture
 
-WirelessROS is built upon the **Hub-Engines-Cells (HEC)** architecture:
+MobileROS is built upon the **Hub-Engines-Cells (HEC)** architecture:
 
 ### Hub
 The central coordination entity responsible for orchestrating global policies, service mesh management, and domain context integration.
@@ -105,7 +105,7 @@ echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-### Installing WirelessROS
+### Installing MobileROS
 
 ```bash
 # Clone the repository
@@ -126,7 +126,7 @@ pip install -r requirements.txt
 
 ### Setting up the Wireless Communication Layer
 
-WirelessROS requires a cellular communication layer for full functionality. Follow these steps to install and configure the mobile communication stack:
+MobileROS requires a cellular communication layer for full functionality. Follow these steps to install and configure the mobile communication stack:
 
 ```bash
 # Clone the communication layer repository
@@ -155,15 +155,15 @@ nano ~/wireless_ros_config.conf
 
 ### InfluxDB Setup
 
-WirelessROS uses InfluxDB to store and query communication metrics:
+MobileROS uses InfluxDB to store and query communication metrics:
 
 ```bash
 # Start InfluxDB service
 sudo systemctl start influxdb
 
-# Create a bucket and token for WirelessROS
+# Create a bucket and token for MobileROS
 influx setup \
-  --username wirelessros_admin \
+  --username mobileros_admin \
   --password secure_password \
   --org my_org \
   --bucket my_bucket \
@@ -173,7 +173,7 @@ influx setup \
 influx auth list
 ```
 
-### WirelessROS Configuration
+### MobileROS Configuration
 
 Edit the main configuration file to set up your system:
 
@@ -220,7 +220,7 @@ hub:
 
 ## Usage
 
-### Launch the WirelessROS System
+### Launch the MobileROS System
 
 Use the provided launch file to start the system:
 
@@ -370,7 +370,7 @@ if __name__ == '__main__':
 
 ### Example 2: LiDAR-based Perception with Adaptive Transmission
 
-This example shows how to integrate WirelessROS with a LiDAR sensor for adaptive point cloud processing:
+This example shows how to integrate MobileROS with a LiDAR sensor for adaptive point cloud processing:
 
 ```python
 #!/usr/bin/env python3
@@ -382,7 +382,7 @@ import std_msgs.msg
 
 class LidarProcessor(ChannelObserver):
     def __init__(self):
-        # Initialize WirelessROS components
+        # Initialize MobileROS components
         self.hub = Hub()
         self.rie = self.hub.attach_engine(RadioInfoEngine(), mode='realtime')
         self.cde = self.hub.attach_engine(CrossDomainEngine(), mode='optimized')
@@ -412,7 +412,7 @@ class LidarProcessor(ChannelObserver):
         self.downsampling_factor = 1.0  # No downsampling by default
         self.channel_quality = 1.0  # Perfect quality by default
         
-        rospy.loginfo("LiDAR processor initialized with WirelessROS")
+        rospy.loginfo("LiDAR processor initialized with MobileROS")
     
     def on_channel_update(self, state):
         """Handle wireless channel state updates"""
@@ -498,7 +498,7 @@ from geometry_msgs.msg import PoseStamped, Twist
 
 class NavigationRobot(ChannelObserver):
     def __init__(self):
-        # Initialize WirelessROS hub and engines
+        # Initialize MobileROS hub and engines
         self.hub = Hub()
         self.rie = self.hub.attach_engine(RadioInfoEngine(), mode='realtime')
         self.cde = self.hub.attach_engine(CrossDomainEngine(), mode='optimized')
@@ -696,11 +696,11 @@ if __name__ == '__main__':
 
 ## Contribution
 
-We welcome contributions to WirelessROS!
+We welcome contributions to MobileROS!
 
 ## License
 
-WirelessROS is released under the MIT License.
+MobileROS is released under the MIT License.
 
 ## Acknowledgments
 
