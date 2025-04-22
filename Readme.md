@@ -7,7 +7,7 @@
 
 MobileROS is a revolutionary framework that transforms wireless communication from a traditional external module into a transparent core resource within the robot operating system. It enables unprecedented capabilities including communication quality awareness, cross-domain knowledge fusion, and dynamic resource allocation, surpassing functionalities available in current ROS-based systems.
 
-![MobileROS Architecture](./Arch.png)
+![MobileROS Architecture](./Head.png)
 
 ## Features
 
