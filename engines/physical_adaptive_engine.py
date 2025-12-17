@@ -4,7 +4,7 @@ import numpy as np
 import threading
 import time
 from collections import deque
-from wireless_ros.msgs.msg import ChannelState, TransmissionStrategy, Constraint, PhyLayerMetrics
+from mobile_ros.msgs.msg import ChannelState, TransmissionStrategy, Constraint, PhyLayerMetrics
 from std_msgs.msg import Int32, Float32, String, Bool
 from sensor_msgs.msg import Image, PointCloud2
 
@@ -36,27 +36,27 @@ class PhysicalAdaptiveEngine:
         self.use_reinforcement_learning = rospy.get_param('~use_reinforcement_learning', True)
         
         # 订阅者 - 信道和约束
-        rospy.Subscriber('/wireless_ros/channel_state', ChannelState, self.channel_state_callback)
-        rospy.Subscriber('/wireless_ros/constraints', Constraint, self.constraint_callback)
-        rospy.Subscriber('/wireless_ros/phy_layer_metrics', PhyLayerMetrics, self.phy_metrics_callback)
+        rospy.Subscriber('/mobile_ros/channel_state', ChannelState, self.channel_state_callback)
+        rospy.Subscriber('/mobile_ros/constraints', Constraint, self.constraint_callback)
+        rospy.Subscriber('/mobile_ros/phy_layer_metrics', PhyLayerMetrics, self.phy_metrics_callback)
         
         # 订阅者 - 传感器和数据流
         rospy.Subscriber('/camera/image_raw', Image, self.camera_callback)
         rospy.Subscriber('/lidar/points', PointCloud2, self.lidar_callback)
-        rospy.Subscriber('/wireless_ros/adaptation_recommendation', String, self.adaptation_recommendation_callback)
-        rospy.Subscriber('/wireless_ros/task_criticality', Float32, self.task_criticality_callback)
+        rospy.Subscriber('/mobile_ros/adaptation_recommendation', String, self.adaptation_recommendation_callback)
+        rospy.Subscriber('/mobile_ros/task_criticality', Float32, self.task_criticality_callback)
         
         # 发布者 - 传输策略
-        self.strategy_pub = rospy.Publisher('/wireless_ros/transmission_strategy', TransmissionStrategy, queue_size=10)
-        self.target_mcs_pub = rospy.Publisher('/wireless_ros/target_mcs', Int32, queue_size=10)
-        self.target_prb_pub = rospy.Publisher('/wireless_ros/target_prb', Int32, queue_size=10)
-        self.compression_ratio_pub = rospy.Publisher('/wireless_ros/compression_ratio', Float32, queue_size=10)
+        self.strategy_pub = rospy.Publisher('/mobile_ros/transmission_strategy', TransmissionStrategy, queue_size=10)
+        self.target_mcs_pub = rospy.Publisher('/mobile_ros/target_mcs', Int32, queue_size=10)
+        self.target_prb_pub = rospy.Publisher('/mobile_ros/target_prb', Int32, queue_size=10)
+        self.compression_ratio_pub = rospy.Publisher('/mobile_ros/compression_ratio', Float32, queue_size=10)
         
         # 发布者 - 传输质量和调试信息
-        self.packet_success_rate_pub = rospy.Publisher('/wireless_ros/packet_success_rate', Float32, queue_size=10)
-        self.adaptive_action_pub = rospy.Publisher('/wireless_ros/adaptive_action', String, queue_size=10)
-        self.learning_status_pub = rospy.Publisher('/wireless_ros/learning_status', String, queue_size=10)
-        self.resource_allocation_pub = rospy.Publisher('/wireless_ros/resource_allocation', String, queue_size=10)
+        self.packet_success_rate_pub = rospy.Publisher('/mobile_ros/packet_success_rate', Float32, queue_size=10)
+        self.adaptive_action_pub = rospy.Publisher('/mobile_ros/adaptive_action', String, queue_size=10)
+        self.learning_status_pub = rospy.Publisher('/mobile_ros/learning_status', String, queue_size=10)
+        self.resource_allocation_pub = rospy.Publisher('/mobile_ros/resource_allocation', String, queue_size=10)
         
         # 状态
         self.channel_states = {}  # 按RNTI分类的通道状态

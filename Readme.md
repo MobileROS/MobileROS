@@ -3,6 +3,8 @@
 ### Code link: https://github.com/MobileROS/MobileROS
 ### If you encounter any issues during installation or running, please open an issue, and I will respond within one day.
 
+> **Namespace update**: the project package and topic prefix are now `mobile_ros`. A temporary `wireless_ros` compatibility shim is provided but is deprecated and will be removed in a future release.
+
 ## An Open Source Wireless-Native Robot Operating System
 
 MobileROS is a revolutionary framework that transforms wireless communication from a traditional external module into a transparent core resource within the robot operating system. It enables unprecedented capabilities including communication quality awareness, cross-domain knowledge fusion, and dynamic resource allocation, surpassing functionalities available in current ROS-based systems.
@@ -109,8 +111,8 @@ source ~/.bashrc
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/wireless-ros.git
-cd wireless-ros
+git clone https://github.com/your-org/mobile-ros.git
+cd mobile-ros
 
 # Build the workspace
 mkdir -p build && cd build
@@ -145,10 +147,10 @@ sudo make install
 
 # Configure the mobile communication stack
 cd ../config
-cp default_config.conf ~/wireless_ros_config.conf
+cp default_config.conf ~/mobile_ros_config.conf
 
 # Edit the configuration file as needed
-nano ~/wireless_ros_config.conf
+nano ~/mobile_ros_config.conf
 ```
 
 ## Configuration
@@ -179,11 +181,11 @@ Edit the main configuration file to set up your system:
 
 ```bash
 # Create and edit the configuration file
-mkdir -p ~/.wireless_ros
-cp config/wireless_ros.yaml ~/.wireless_ros/
+mkdir -p ~/.mobile_ros
+cp config/mobile_ros.yaml ~/.mobile_ros/
 
 # Edit the configuration
-nano ~/.wireless_ros/wireless_ros.yaml
+nano ~/.mobile_ros/mobile_ros.yaml
 ```
 
 Key configuration parameters:
@@ -226,10 +228,10 @@ Use the provided launch file to start the system:
 
 ```bash
 # Using ROS launch
-roslaunch wireless_ros wireless_ros.launch
+roslaunch mobile_ros mobile_ros.launch
 
 # Or using ROS2
-ros2 launch wireless_ros wireless_ros.launch.py
+ros2 launch mobile_ros mobile_ros.launch.py
 ```
 
 ### Running the Three Engines
@@ -238,13 +240,13 @@ You can also start each engine individually:
 
 ```bash
 # Start the Radio Information Engine
-rosrun wireless_ros radio_information_engine.py
+rosrun mobile_ros radio_information_engine.py
 
 # Start the Cross Domain Engine
-rosrun wireless_ros cross_domain_engine.py
+rosrun mobile_ros cross_domain_engine.py
 
 # Start the Physical Adaptive Engine
-rosrun wireless_ros physical_adaptive_engine.py
+rosrun mobile_ros physical_adaptive_engine.py
 ```
 
 ### Using the Hub
@@ -252,7 +254,7 @@ rosrun wireless_ros physical_adaptive_engine.py
 The Hub can be started separately to orchestrate the system:
 
 ```bash
-rosrun wireless_ros hub.py
+rosrun mobile_ros hub.py
 ```
 
 ## Examples
@@ -263,8 +265,8 @@ This example demonstrates a robot that dynamically adjusts its vision processing
 
 ```python
 #!/usr/bin/env python3
-from wireless_ros import Hub, RadioInfoEngine, CrossDomainEngine, PhysicalAdaptiveEngine, SensorCell, CommCell, AdaptivePolicy, QoSProfile
-from wireless_ros.core import ChannelObserver
+from mobile_ros import Hub, RadioInfoEngine, CrossDomainEngine, PhysicalAdaptiveEngine, SensorCell, CommCell, AdaptivePolicy, QoSProfile
+from mobile_ros.core import ChannelObserver
 import rospy
 from sensor_msgs.msg import Image
 import numpy as np
@@ -282,7 +284,7 @@ class RobotNode(ChannelObserver):
         self.rie.register_observer(self)
         
         # Image publisher for processed images
-        self.image_pub = rospy.Publisher('/wireless_ros/processed_image', Image, queue_size=10)
+        self.image_pub = rospy.Publisher('/mobile_ros/processed_image', Image, queue_size=10)
         
         # Current network quality state
         self.network_quality = "GOOD"
@@ -374,8 +376,8 @@ This example shows how to integrate MobileROS with a LiDAR sensor for adaptive p
 
 ```python
 #!/usr/bin/env python3
-from wireless_ros import Hub, RadioInfoEngine, CrossDomainEngine, PhysicalAdaptiveEngine, SensorCell, CommCell, AdaptivePolicy, QoSProfile
-from wireless_ros.core import ChannelObserver
+from mobile_ros import Hub, RadioInfoEngine, CrossDomainEngine, PhysicalAdaptiveEngine, SensorCell, CommCell, AdaptivePolicy, QoSProfile
+from mobile_ros.core import ChannelObserver
 import rospy
 from sensor_msgs.msg import PointCloud2
 import std_msgs.msg
@@ -405,8 +407,8 @@ class LidarProcessor(ChannelObserver):
         
         # Subscribers and publishers
         self.pc_sub = rospy.Subscriber('/lidar/points', PointCloud2, self.lidar_callback)
-        self.pc_pub = rospy.Publisher('/wireless_ros/processed_pointcloud', PointCloud2, queue_size=10)
-        self.status_pub = rospy.Publisher('/wireless_ros/lidar_status', std_msgs.msg.String, queue_size=10)
+        self.pc_pub = rospy.Publisher('/mobile_ros/processed_pointcloud', PointCloud2, queue_size=10)
+        self.status_pub = rospy.Publisher('/mobile_ros/lidar_status', std_msgs.msg.String, queue_size=10)
         
         # State variables
         self.downsampling_factor = 1.0  # No downsampling by default
@@ -487,9 +489,9 @@ This example demonstrates a more complex robot setup with multiple sensors and c
 
 ```python
 #!/usr/bin/env python3
-from wireless_ros import Hub, RadioInfoEngine, CrossDomainEngine, PhysicalAdaptiveEngine
-from wireless_ros import SensorCell, CommCell, AdaptivePolicy, QoSProfile
-from wireless_ros.core import ChannelObserver
+from mobile_ros import Hub, RadioInfoEngine, CrossDomainEngine, PhysicalAdaptiveEngine
+from mobile_ros import SensorCell, CommCell, AdaptivePolicy, QoSProfile
+from mobile_ros.core import ChannelObserver
 import rospy
 import numpy as np
 from sensor_msgs.msg import Image, PointCloud2, NavSatFix
@@ -531,7 +533,7 @@ class NavigationRobot(ChannelObserver):
         
         # Navigation-related subscribers and publishers
         rospy.Subscriber('/map', OccupancyGrid, self.map_callback)
-        self.path_pub = rospy.Publisher('/wireless_ros/comm_aware_path', Path, queue_size=1)
+        self.path_pub = rospy.Publisher('/mobile_ros/comm_aware_path', Path, queue_size=1)
         self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
         
         # Network quality mapping

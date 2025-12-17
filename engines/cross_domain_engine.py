@@ -4,7 +4,7 @@ import numpy as np
 import threading
 import time
 from collections import deque
-from wireless_ros.msgs.msg import ChannelState, Constraint, PhyLayerMetrics, SpectrumAnalysis
+from mobile_ros.msgs.msg import ChannelState, Constraint, PhyLayerMetrics, SpectrumAnalysis
 from std_msgs.msg import String, Float32, Int32, Bool
 from geometry_msgs.msg import PoseStamped, TwistStamped
 from sensor_msgs.msg import Image, PointCloud2
@@ -34,12 +34,12 @@ class CrossDomainEngine:
         self.enable_task_criticality = rospy.get_param('~enable_task_criticality', True)
         
         # 订阅者 - 通信域
-        rospy.Subscriber('/wireless_ros/channel_state', ChannelState, self.channel_state_callback)
-        rospy.Subscriber('/wireless_ros/phy_layer_metrics', PhyLayerMetrics, self.phy_metrics_callback)
-        rospy.Subscriber('/wireless_ros/spectrum_analysis', SpectrumAnalysis, self.spectrum_analysis_callback)
-        rospy.Subscriber('/wireless_ros/bandwidth_forecast', Float32, self.bandwidth_forecast_callback)
-        rospy.Subscriber('/wireless_ros/latency_forecast', Float32, self.latency_forecast_callback)
-        rospy.Subscriber('/wireless_ros/interference_zone', String, self.interference_zone_callback)
+        rospy.Subscriber('/mobile_ros/channel_state', ChannelState, self.channel_state_callback)
+        rospy.Subscriber('/mobile_ros/phy_layer_metrics', PhyLayerMetrics, self.phy_metrics_callback)
+        rospy.Subscriber('/mobile_ros/spectrum_analysis', SpectrumAnalysis, self.spectrum_analysis_callback)
+        rospy.Subscriber('/mobile_ros/bandwidth_forecast', Float32, self.bandwidth_forecast_callback)
+        rospy.Subscriber('/mobile_ros/latency_forecast', Float32, self.latency_forecast_callback)
+        rospy.Subscriber('/mobile_ros/interference_zone', String, self.interference_zone_callback)
         
         # 订阅者 - 机器人域
         rospy.Subscriber('/robot/pose', PoseStamped, self.robot_pose_callback)
@@ -50,19 +50,19 @@ class CrossDomainEngine:
         rospy.Subscriber('/task_status', String, self.task_status_callback)
         
         # 发布者 - 约束和融合结果
-        self.constraint_pub = rospy.Publisher('/wireless_ros/constraints', Constraint, queue_size=10)
-        self.network_quality_pub = rospy.Publisher('/wireless_ros/network_quality', String, queue_size=10)
-        self.latency_estimate_pub = rospy.Publisher('/wireless_ros/latency_estimate', Float32, queue_size=10)
-        self.bandwidth_estimate_pub = rospy.Publisher('/wireless_ros/bandwidth_estimate', Float32, queue_size=10)
-        self.reliability_score_pub = rospy.Publisher('/wireless_ros/reliability_score', Float32, queue_size=10)
+        self.constraint_pub = rospy.Publisher('/mobile_ros/constraints', Constraint, queue_size=10)
+        self.network_quality_pub = rospy.Publisher('/mobile_ros/network_quality', String, queue_size=10)
+        self.latency_estimate_pub = rospy.Publisher('/mobile_ros/latency_estimate', Float32, queue_size=10)
+        self.bandwidth_estimate_pub = rospy.Publisher('/mobile_ros/bandwidth_estimate', Float32, queue_size=10)
+        self.reliability_score_pub = rospy.Publisher('/mobile_ros/reliability_score', Float32, queue_size=10)
         
         # 发布者 - 跨域融合结果
-        self.enhanced_map_pub = rospy.Publisher('/wireless_ros/enhanced_map', OccupancyGrid, queue_size=2)
-        self.communication_aware_path_pub = rospy.Publisher('/wireless_ros/comm_aware_path', Path, queue_size=2)
-        self.sensor_mode_recommendation_pub = rospy.Publisher('/wireless_ros/sensor_mode', String, queue_size=10)
-        self.task_criticality_pub = rospy.Publisher('/wireless_ros/task_criticality', Float32, queue_size=10)
-        self.adaptation_recommendation_pub = rospy.Publisher('/wireless_ros/adaptation_recommendation', String, queue_size=10)
-        self.data_compression_level_pub = rospy.Publisher('/wireless_ros/compression_level', Float32, queue_size=10)
+        self.enhanced_map_pub = rospy.Publisher('/mobile_ros/enhanced_map', OccupancyGrid, queue_size=2)
+        self.communication_aware_path_pub = rospy.Publisher('/mobile_ros/comm_aware_path', Path, queue_size=2)
+        self.sensor_mode_recommendation_pub = rospy.Publisher('/mobile_ros/sensor_mode', String, queue_size=10)
+        self.task_criticality_pub = rospy.Publisher('/mobile_ros/task_criticality', Float32, queue_size=10)
+        self.adaptation_recommendation_pub = rospy.Publisher('/mobile_ros/adaptation_recommendation', String, queue_size=10)
+        self.data_compression_level_pub = rospy.Publisher('/mobile_ros/compression_level', Float32, queue_size=10)
         
         # 状态变量
         self.channel_states = {}  # RNTI -> 最新通道状态

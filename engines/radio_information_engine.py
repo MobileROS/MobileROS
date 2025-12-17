@@ -8,9 +8,9 @@ import threading
 from datetime import datetime, timedelta
 from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
-from wireless_ros.msgs.msg import ChannelState, PhyLayerMetrics, SpectrumAnalysis
+from mobile_ros.msgs.msg import ChannelState, PhyLayerMetrics, SpectrumAnalysis
 from std_msgs.msg import String, Float32, Int32MultiArray
-from wireless_ros.core import ChannelObserver
+from mobile_ros.core import ChannelObserver
 
 class RadioInformationEngine(ChannelObserver):
     """
@@ -41,16 +41,16 @@ class RadioInformationEngine(ChannelObserver):
         self.measurement_interval = rospy.get_param('~measurement_interval', 0.1)  # 100ms
         
         # 发布者 - 基本通道状态
-        self.channel_state_pub = rospy.Publisher('/wireless_ros/channel_state', ChannelState, queue_size=10)
+        self.channel_state_pub = rospy.Publisher('/mobile_ros/channel_state', ChannelState, queue_size=10)
         
         # 发布者 - 高级指标
-        self.phy_metrics_pub = rospy.Publisher('/wireless_ros/phy_layer_metrics', PhyLayerMetrics, queue_size=10)
-        self.spectrum_analysis_pub = rospy.Publisher('/wireless_ros/spectrum_analysis', SpectrumAnalysis, queue_size=10)
-        self.bandwidth_forecast_pub = rospy.Publisher('/wireless_ros/bandwidth_forecast', Float32, queue_size=10)
-        self.latency_forecast_pub = rospy.Publisher('/wireless_ros/latency_forecast', Float32, queue_size=10)
-        self.resource_utilization_pub = rospy.Publisher('/wireless_ros/resource_utilization', Float32, queue_size=10)
-        self.interference_zone_pub = rospy.Publisher('/wireless_ros/interference_zone', String, queue_size=10)
-        self.prb_utilization_pub = rospy.Publisher('/wireless_ros/prb_utilization', Int32MultiArray, queue_size=10)
+        self.phy_metrics_pub = rospy.Publisher('/mobile_ros/phy_layer_metrics', PhyLayerMetrics, queue_size=10)
+        self.spectrum_analysis_pub = rospy.Publisher('/mobile_ros/spectrum_analysis', SpectrumAnalysis, queue_size=10)
+        self.bandwidth_forecast_pub = rospy.Publisher('/mobile_ros/bandwidth_forecast', Float32, queue_size=10)
+        self.latency_forecast_pub = rospy.Publisher('/mobile_ros/latency_forecast', Float32, queue_size=10)
+        self.resource_utilization_pub = rospy.Publisher('/mobile_ros/resource_utilization', Float32, queue_size=10)
+        self.interference_zone_pub = rospy.Publisher('/mobile_ros/interference_zone', String, queue_size=10)
+        self.prb_utilization_pub = rospy.Publisher('/mobile_ros/prb_utilization', Int32MultiArray, queue_size=10)
         
         # InfluxDB客户端
         self.client = InfluxDBClient(
