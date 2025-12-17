@@ -1,12 +1,12 @@
 <launch>
   <!-- 全局参数 -->
-  <param name="/wireless_ros/influxdb_url" value="http://localhost:8086" />
-  <param name="/wireless_ros/influxdb_token" value="LbUOm57nYdJp0trGuaI4TcSTvzeo5yJYsj5GtEC-EvkNmEFC35t4HyrMwWBanDhVRZmVW7iTqqXGTGB82DmG2g==" />
-  <param name="/wireless_ros/influxdb_org" value="my_org" />
-  <param name="/wireless_ros/influxdb_bucket" value="my_bucket" />
+  <param name="/mobile_ros/influxdb_url" value="http://localhost:8086" />
+  <param name="/mobile_ros/influxdb_token" value="LbUOm57nYdJp0trGuaI4TcSTvzeo5yJYsj5GtEC-EvkNmEFC35t4HyrMwWBanDhVRZmVW7iTqqXGTGB82DmG2g==" />
+  <param name="/mobile_ros/influxdb_org" value="my_org" />
+  <param name="/mobile_ros/influxdb_bucket" value="my_bucket" />
   
   <!-- 启动Hub -->
-  <node name="wireless_ros_hub" pkg="wireless_ros" type="hub.py" output="screen">
+  <node name="mobile_ros_hub" pkg="mobile_ros" type="hub.py" output="screen">
     <param name="check_interval" value="1.0" />
     <param name="recovery_enabled" value="true" />
     <param name="priority_management_enabled" value="true" />
@@ -15,7 +15,7 @@
   </node>
 
   <!-- 启动RadioInformationEngine -->
-  <node name="radio_info_engine" pkg="wireless_ros" type="radio_information_engine.py" output="screen">
+  <node name="radio_info_engine" pkg="mobile_ros" type="radio_information_engine.py" output="screen">
     <param name="query_interval" value="0.1" />
     <param name="prediction_horizon" value="10" />
     <param name="history_window_size" value="50" />
@@ -25,7 +25,7 @@
   </node>
 
   <!-- 启动CrossDomainEngine -->
-  <node name="cross_domain_engine" pkg="wireless_ros" type="cross_domain_engine.py" output="screen">
+  <node name="cross_domain_engine" pkg="mobile_ros" type="cross_domain_engine.py" output="screen">
     <param name="update_interval" value="0.2" />
     <param name="fusion_window_size" value="10" />
     <param name="enable_map_enhancement" value="true" />
@@ -35,7 +35,7 @@
   </node>
 
   <!-- 启动PhysicalAdaptiveEngine -->
-  <node name="physical_adaptive_engine" pkg="wireless_ros" type="physical_adaptive_engine.py" output="screen">
+  <node name="physical_adaptive_engine" pkg="mobile_ros" type="physical_adaptive_engine.py" output="screen">
     <param name="update_interval" value="0.1" />
     <param name="learning_rate" value="0.1" />
     <param name="exploration_rate" value="0.2" />
@@ -49,7 +49,7 @@
 
   <!-- 可以在这里添加需要的Cell节点，根据实际情况配置 -->
   <!-- 
-  <node name="camera_cell" pkg="wireless_ros" type="camera_cell.py" output="screen">
+  <node name="camera_cell" pkg="mobile_ros" type="camera_cell.py" output="screen">
     <param name="frame_rate" value="30" />
     <param name="resolution" value="640x480" />
   </node>

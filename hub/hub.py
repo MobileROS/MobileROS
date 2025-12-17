@@ -5,13 +5,13 @@ import threading
 import time
 import numpy as np
 from collections import deque
-from wireless_ros.msgs.msg import ChannelState, TransmissionStrategy, Constraint, PhyLayerMetrics, SpectrumAnalysis
+from mobile_ros.msgs.msg import ChannelState, TransmissionStrategy, Constraint, PhyLayerMetrics, SpectrumAnalysis
 from std_msgs.msg import String, Float32, Int32, Bool
 from diagnostic_msgs.msg import DiagnosticArray, DiagnosticStatus, KeyValue
 
 class Hub:
     """
-    WirelessROS Hub - 整个系统的协调中心
+    MobileROS Hub - 整个系统的协调中心
     
     依据Hub-Engines-Cells架构，Hub负责：
     1. 全局资源分配与策略协调
@@ -22,7 +22,7 @@ class Hub:
     """
     
     def __init__(self):
-        rospy.init_node('wireless_ros_hub')
+        rospy.init_node('mobile_ros_hub')
         
         # 高级参数
         self.check_interval = rospy.get_param('~check_interval', 1.0)
@@ -35,19 +35,19 @@ class Hub:
         self.engine_nodes = {
             'radio_info_engine': {
                 'script': 'radio_information_engine.py',
-                'package': 'wireless_ros',
+                'package': 'mobile_ros',
                 'priority': 9,  # 高优先级
                 'required': True  # 必需组件
             },
             'cross_domain_engine': {
                 'script': 'cross_domain_engine.py',
-                'package': 'wireless_ros',
+                'package': 'mobile_ros',
                 'priority': 8,
                 'required': True
             },
             'physical_adaptive_engine': {
                 'script': 'physical_adaptive_engine.py',
-                'package': 'wireless_ros',
+                'package': 'mobile_ros',
                 'priority': 8,
                 'required': True
             }
@@ -57,25 +57,25 @@ class Hub:
         self.cell_nodes = {}  # 动态发现或从参数加载
         
         # 订阅所有相关话题
-        self.channel_state_sub = rospy.Subscriber('/wireless_ros/channel_state', ChannelState, self.channel_state_callback)
-        self.phy_metrics_sub = rospy.Subscriber('/wireless_ros/phy_layer_metrics', PhyLayerMetrics, self.phy_metrics_callback)
-        self.spectrum_analysis_sub = rospy.Subscriber('/wireless_ros/spectrum_analysis', SpectrumAnalysis, self.spectrum_analysis_callback)
-        self.constraint_sub = rospy.Subscriber('/wireless_ros/constraints', Constraint, self.constraint_callback)
-        self.strategy_sub = rospy.Subscriber('/wireless_ros/transmission_strategy', TransmissionStrategy, self.strategy_callback)
+        self.channel_state_sub = rospy.Subscriber('/mobile_ros/channel_state', ChannelState, self.channel_state_callback)
+        self.phy_metrics_sub = rospy.Subscriber('/mobile_ros/phy_layer_metrics', PhyLayerMetrics, self.phy_metrics_callback)
+        self.spectrum_analysis_sub = rospy.Subscriber('/mobile_ros/spectrum_analysis', SpectrumAnalysis, self.spectrum_analysis_callback)
+        self.constraint_sub = rospy.Subscriber('/mobile_ros/constraints', Constraint, self.constraint_callback)
+        self.strategy_sub = rospy.Subscriber('/mobile_ros/transmission_strategy', TransmissionStrategy, self.strategy_callback)
         
         # 系统监控话题
-        self.resource_allocation_sub = rospy.Subscriber('/wireless_ros/resource_allocation', String, self.resource_allocation_callback)
-        self.learning_status_sub = rospy.Subscriber('/wireless_ros/learning_status', String, self.learning_status_callback)
-        self.adaptation_recommendation_sub = rospy.Subscriber('/wireless_ros/adaptation_recommendation', String, self.adaptation_recommendation_callback)
+        self.resource_allocation_sub = rospy.Subscriber('/mobile_ros/resource_allocation', String, self.resource_allocation_callback)
+        self.learning_status_sub = rospy.Subscriber('/mobile_ros/learning_status', String, self.learning_status_callback)
+        self.adaptation_recommendation_sub = rospy.Subscriber('/mobile_ros/adaptation_recommendation', String, self.adaptation_recommendation_callback)
         
         # 发布诊断信息
         self.diagnostics_pub = rospy.Publisher('/diagnostics', DiagnosticArray, queue_size=10)
         
         # 发布系统状态和控制信息
-        self.system_status_pub = rospy.Publisher('/wireless_ros/system_status', String, queue_size=10)
-        self.resource_overview_pub = rospy.Publisher('/wireless_ros/resource_overview', String, queue_size=10)
-        self.conflict_resolution_pub = rospy.Publisher('/wireless_ros/conflict_resolution', String, queue_size=10)
-        self.global_policy_pub = rospy.Publisher('/wireless_ros/global_policy', String, queue_size=10)
+        self.system_status_pub = rospy.Publisher('/mobile_ros/system_status', String, queue_size=10)
+        self.resource_overview_pub = rospy.Publisher('/mobile_ros/resource_overview', String, queue_size=10)
+        self.conflict_resolution_pub = rospy.Publisher('/mobile_ros/conflict_resolution', String, queue_size=10)
+        self.global_policy_pub = rospy.Publisher('/mobile_ros/global_policy', String, queue_size=10)
         
         # 状态跟踪
         self.channel_states = {}  # RNTI -> 最新通道状态
@@ -138,7 +138,7 @@ class Hub:
             self.resource_monitor_thread.daemon = True
             self.resource_monitor_thread.start()
         
-        rospy.loginfo("WirelessROS Hub initialized")
+        rospy.loginfo("MobileROS Hub initialized")
         self.log_system_event("Hub initialized and ready for operation")
         
         # 注册关闭回调
@@ -231,7 +231,7 @@ class Hub:
                 
                 # 检查所有引擎节点
                 for name, config in self.engine_nodes.items():
-                    node_name = f"/wireless_ros/{name}"
+                    node_name = f"/mobile_ros/{name}"
                     
                     # 检查节点是否活跃
                     if name not in self.engine_status or rospy.get_time() - self.engine_status.get(f"{name}_timestamp", 0) > 5.0:
@@ -252,7 +252,7 @@ class Hub:
                 
                 # 同样检查Cell节点
                 for name, config in self.cell_nodes.items():
-                    node_name = f"/wireless_ros/cells/{name}"
+                    node_name = f"/mobile_ros/cells/{name}"
                     
                     if node_name not in nodes_list:
                         if self.recovery_enabled and config.get('required', False):
@@ -272,7 +272,7 @@ class Hub:
         """启动引擎节点"""
         try:
             script = config['script']
-            package = config.get('package', 'wireless_ros')
+            package = config.get('package', 'mobile_ros')
             
             # 记录启动时间
             self.engine_start_times[name] = rospy.get_time()
@@ -292,7 +292,7 @@ class Hub:
         """启动Cell节点"""
         try:
             script = config['script']
-            package = config.get('package', 'wireless_ros')
+            package = config.get('package', 'mobile_ros')
             
             # 记录启动时间
             self.cell_start_times[name] = rospy.get_time()
@@ -316,7 +316,7 @@ class Hub:
         # 引擎诊断
         for name, config in self.engine_nodes.items():
             status = DiagnosticStatus()
-            status.name = f"WirelessROS Engine: {name}"
+            status.name = f"MobileROS Engine: {name}"
             
             if name in self.engine_status and self.engine_status[name] == 'active':
                 status.level = DiagnosticStatus.OK
@@ -357,7 +357,7 @@ class Hub:
         # Cell诊断
         for name, config in self.cell_nodes.items():
             status = DiagnosticStatus()
-            status.name = f"WirelessROS Cell: {name}"
+            status.name = f"MobileROS Cell: {name}"
             
             if name in self.cell_status and self.cell_status[name] == 'active':
                 status.level = DiagnosticStatus.OK
@@ -374,7 +374,7 @@ class Hub:
         
         # 系统整体状态
         overall_status = DiagnosticStatus()
-        overall_status.name = "WirelessROS Hub"
+        overall_status.name = "MobileROS Hub"
         
         # 判断系统整体状态
         required_engines_active = all(
@@ -653,7 +653,7 @@ class Hub:
             # 注册新引擎
             self.engine_nodes[engine_name] = {
                 'script': f"{engine_name}.py",
-                'package': 'wireless_ros',
+                'package': 'mobile_ros',
                 'priority': 5,
                 'required': False,
                 'mode': mode
@@ -686,7 +686,7 @@ class Hub:
         if name not in self.cell_nodes:
             self.cell_nodes[name] = {
                 'script': f"{name}_cell.py",
-                'package': 'wireless_ros',
+                'package': 'mobile_ros',
                 'required': kwargs.get('required', False),
                 'parameters': kwargs
             }
@@ -713,7 +713,7 @@ class Hub:
             self.resource_monitor_thread.join(timeout=1.0)
         
         self.log_system_event("Hub shutting down")
-        rospy.loginfo("WirelessROS Hub shutting down")
+        rospy.loginfo("MobileROS Hub shutting down")
 
 if __name__ == '__main__':
     try:

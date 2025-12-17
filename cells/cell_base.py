@@ -2,13 +2,13 @@
 import rospy
 import threading
 import time
-from wireless_ros.core import ChannelObserver
+from mobile_ros.core import ChannelObserver
 
 class Cell:
     """
     Cell基类 - 所有功能单元的基础
     
-    Cell是WirelessROS架构中的基本执行单元，提供:
+    Cell是MobileROS架构中的基本执行单元，提供:
     1. 通信感知能力
     2. 自适应行为
     3. 标准化接口

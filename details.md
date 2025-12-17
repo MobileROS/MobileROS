@@ -1,4 +1,4 @@
-# WirelessROS Architecture Documentation
+# MobileROS Architecture Documentation
 
 ## Table of Contents
 
@@ -41,21 +41,21 @@
 
 ## System Overview
 
-WirelessROS is a robot operating system that treats wireless communication as a core information resource rather than an external service. This document details the implementation mechanisms of WirelessROS, focusing on how it achieves deep integration of communication and robot control through the Hub-Engines-Cells architecture.
+MobileROS is a robot operating system that treats wireless communication as a core information resource rather than an external service. This document details the implementation mechanisms of MobileROS, focusing on how it achieves deep integration of communication and robot control through the Hub-Engines-Cells architecture.
 
-Unlike traditional ROS systems that view wireless communication as a black box service, WirelessROS creates a hybrid coordination architecture with centralized coordination and distributed execution through service mesh principles and domain-driven design theory. This architecture allows robots to directly access physical layer communication data and dynamically adjust perception, planning, and control strategies based on communication quality.
+Unlike traditional ROS systems that view wireless communication as a black box service, MobileROS creates a hybrid coordination architecture with centralized coordination and distributed execution through service mesh principles and domain-driven design theory. This architecture allows robots to directly access physical layer communication data and dynamically adjust perception, planning, and control strategies based on communication quality.
 
-The core innovation of WirelessROS lies in transforming physical layer communication from an opaque external service into a key information source within the system. This transformation is achieved through three specialized engines: Radio Information Engine extracts and interprets physical layer parameters; Cross Domain Engine transforms communication insights into robot control constraints; Physical Adaptive Engine dynamically adjusts transmission strategies based on task requirements. These engines work together under the coordination of the Hub, forming a complete closed-loop system that allows robots to dynamically adjust behavior based on communication conditions while optimizing communication resources to support robotic tasks.
+The core innovation of MobileROS lies in transforming physical layer communication from an opaque external service into a key information source within the system. This transformation is achieved through three specialized engines: Radio Information Engine extracts and interprets physical layer parameters; Cross Domain Engine transforms communication insights into robot control constraints; Physical Adaptive Engine dynamically adjusts transmission strategies based on task requirements. These engines work together under the coordination of the Hub, forming a complete closed-loop system that allows robots to dynamically adjust behavior based on communication conditions while optimizing communication resources to support robotic tasks.
 
 ## Hub-Engines-Cells Architecture
 
 ### Architectural Design Principles
 
-The Hub-Engines-Cells architecture of WirelessROS is implemented based on two core design principles:
+The Hub-Engines-Cells architecture of MobileROS is implemented based on two core design principles:
 
-1. **Service Mesh Principles**: This principle is reflected in WirelessROS as decentralized control logic, uniform service-to-service communication, and system-wide observability. The Hub, as the central coordinator, implements service discovery, load balancing, and failover, ensuring robust and resilient inter-module communication. From an implementation perspective, this principle is realized through a message bus mechanism, where components communicate via standardized interfaces, and the Hub monitors global system health.
+1. **Service Mesh Principles**: This principle is reflected in MobileROS as decentralized control logic, uniform service-to-service communication, and system-wide observability. The Hub, as the central coordinator, implements service discovery, load balancing, and failover, ensuring robust and resilient inter-module communication. From an implementation perspective, this principle is realized through a message bus mechanism, where components communicate via standardized interfaces, and the Hub monitors global system health.
 
-   The key to service mesh implementation is the "sidecar" pattern built around each service unit (Engine or Cell). Although not directly using industrial-grade service mesh frameworks like Istio or Linkerd, WirelessROS adopts the same design philosophy. Each service component is equipped with standardized communication interfaces, monitoring mechanisms, and error handling logic. These "sidecar" functionalities are decoupled from the core business logic, ensuring system maintainability and scalability. For example, the Hub's `monitor_nodes` method implements functionality similar to the control plane of a service mesh, maintaining system stability through continuous health checks.
+   The key to service mesh implementation is the "sidecar" pattern built around each service unit (Engine or Cell). Although not directly using industrial-grade service mesh frameworks like Istio or Linkerd, MobileROS adopts the same design philosophy. Each service component is equipped with standardized communication interfaces, monitoring mechanisms, and error handling logic. These "sidecar" functionalities are decoupled from the core business logic, ensuring system maintainability and scalability. For example, the Hub's `monitor_nodes` method implements functionality similar to the control plane of a service mesh, maintaining system stability through continuous health checks.
 
 2. **Domain-Driven Design Theory**: This principle guides the system's division into well-defined domains, each mapped to a "bounded context" with its own ubiquitous language and internal logic. In the implementation, Radio Information Engine, Cross Domain Engine, and Physical Adaptive Engine correspond to different domain contexts, each handling domain-specific logic and interacting through context mapping.
 
@@ -63,7 +63,7 @@ The Hub-Engines-Cells architecture of WirelessROS is implemented based on two co
 
 ### Layered Structure
 
-The layered structure of WirelessROS includes three levels:
+The layered structure of MobileROS includes three levels:
 
 1. **Hub Layer**: Implemented as a central coordination unit responsible for global resource allocation and policy coordination. The Hub manages multiple distributed nodes, coordinates cross-domain optimization, and resolves resource conflicts. From an implementation perspective, the Hub maintains a complete system state graph, including the health status, resource usage, and performance metrics of all engines and cells.
 
@@ -184,7 +184,7 @@ The core responsibility of the Cross Domain Engine is to transform communication
    enhanced_data[y, x] = max(1, quality_cost)
    ```
    
-   This calculation converts communication quality (0-1 range) to cost values (1-49 range), with higher costs for poorer communication quality. The result is an enhanced cost map where areas with poor communication quality have higher traversal costs, causing path planners to prefer paths with good communication quality while still considering physical obstacles. This method achieves deep integration of communication and navigation, one of the key innovations of WirelessROS.
+   This calculation converts communication quality (0-1 range) to cost values (1-49 range), with higher costs for poorer communication quality. The result is an enhanced cost map where areas with poor communication quality have higher traversal costs, causing path planners to prefer paths with good communication quality while still considering physical obstacles. This method achieves deep integration of communication and navigation, one of the key innovations of MobileROS.
 
 ### Constraint Generation and Propagation
 
@@ -279,7 +279,7 @@ Another key function of the Cross Domain Engine is to generate and propagate con
 
 ### Communication-Aware Map Enhancement
 
-The Cross Domain Engine implements an innovative communication-aware map enhancement function, which is one of the key differentiating features of WirelessROS:
+The Cross Domain Engine implements an innovative communication-aware map enhancement function, which is one of the key differentiating features of MobileROS:
 
 1. **Communication Quality Mapping**: The system builds a spatial distribution map of communication quality by continuously observing communication quality at different locations. This process is implemented in the `robot_pose_callback` method, where the system associates the current position with observed communication quality and updates the communication quality map whenever it receives a robot position update.
 
@@ -826,7 +826,7 @@ The Hub is responsible for lifecycle management of all components in the system,
                
                # Check all engine nodes
                for name, config in self.engine_nodes.items():
-                   node_name = f"/wireless_ros/{name}"
+                   node_name = f"/mobile_ros/{name}"
                    
                    # Check if node is active
                    if name not in self.engine_status or rospy.get_time() - self.engine_status.get(f"{name}_timestamp", 0) > 5.0:
@@ -868,7 +868,7 @@ The Hub is responsible for lifecycle management of all components in the system,
        """Start engine node"""
        try:
            script = config['script']
-           package = config.get('package', 'wireless_ros')
+           package = config.get('package', 'mobile_ros')
            
            # Record startup time
            self.engine_start_times[name] = rospy.get_time()
@@ -901,7 +901,7 @@ The Hub is responsible for lifecycle management of all components in the system,
    ```python
    for name, config in self.engine_nodes.items():
        status = DiagnosticStatus()
-       status.name = f"WirelessROS Engine: {name}"
+       status.name = f"MobileROS Engine: {name}"
        
        if name in self.engine_status and self.engine_status[name] == 'active':
            status.level = DiagnosticStatus.OK
@@ -927,7 +927,7 @@ The Hub is responsible for lifecycle management of all components in the system,
    ```python
    # Overall system status
    overall_status = DiagnosticStatus()
-   overall_status.name = "WirelessROS Hub"
+   overall_status.name = "MobileROS Hub"
    
    # Determine overall system status
    # ...
@@ -1326,7 +1326,7 @@ The Cell base class implements a standard observer pattern to support notificati
 
 ### Message Bus Implementation
 
-WirelessROS implements component communication through a message bus, with specific implementation as follows:
+MobileROS implements component communication through a message bus, with specific implementation as follows:
 
 1. **ROS Topic-based Communication**: The system leverages the ROS topic mechanism for message publishing and subscription. Each engine and Cell registers corresponding publishers and subscribers, receiving interested information and publishing processing results. This loosely coupled design allows components to evolve independently while maintaining overall system functionality.
 
@@ -1334,20 +1334,20 @@ WirelessROS implements component communication through a message bus, with speci
    
    ```python
    # Publishers - Basic channel states
-   self.channel_state_pub = rospy.Publisher('/wireless_ros/channel_state', ChannelState, queue_size=10)
+   self.channel_state_pub = rospy.Publisher('/mobile_ros/channel_state', ChannelState, queue_size=10)
    
    # Publishers - Advanced metrics
-   self.phy_metrics_pub = rospy.Publisher('/wireless_ros/phy_layer_metrics', PhyLayerMetrics, queue_size=10)
-   self.spectrum_analysis_pub = rospy.Publisher('/wireless_ros/spectrum_analysis', SpectrumAnalysis, queue_size=10)
+   self.phy_metrics_pub = rospy.Publisher('/mobile_ros/phy_layer_metrics', PhyLayerMetrics, queue_size=10)
+   self.spectrum_analysis_pub = rospy.Publisher('/mobile_ros/spectrum_analysis', SpectrumAnalysis, queue_size=10)
    ```
    
    Subscriber registration is similar:
    
    ```python
    # Subscribers - Channel and constraints
-   rospy.Subscriber('/wireless_ros/channel_state', ChannelState, self.channel_state_callback)
-   rospy.Subscriber('/wireless_ros/constraints', Constraint, self.constraint_callback)
-   rospy.Subscriber('/wireless_ros/phy_layer_metrics', PhyLayerMetrics, self.phy_metrics_callback)
+   rospy.Subscriber('/mobile_ros/channel_state', ChannelState, self.channel_state_callback)
+   rospy.Subscriber('/mobile_ros/constraints', Constraint, self.constraint_callback)
+   rospy.Subscriber('/mobile_ros/phy_layer_metrics', PhyLayerMetrics, self.phy_metrics_callback)
    ```
    
    This publish-subscribe model allows flexible and dynamic communication between components, without requiring direct coupling between the publisher and subscriber.
@@ -1407,7 +1407,7 @@ WirelessROS implements component communication through a message bus, with speci
 
 ### Closed-Loop Feedback Mechanism
 
-WirelessROS implements multi-level closed-loop feedback mechanisms, ensuring the system can dynamically respond to changes:
+MobileROS implements multi-level closed-loop feedback mechanisms, ensuring the system can dynamically respond to changes:
 
 1. **Physical Layer Feedback**: Wireless physical layer parameter changes are captured through the Radio Information Engine, converted to channel state updates, and propagated to other components. This near-real-time physical layer feedback allows the system to quickly adapt to wireless environment changes.
 
@@ -1515,11 +1515,11 @@ WirelessROS implements multi-level closed-loop feedback mechanisms, ensuring the
 
 # ROS Messages and Custom Messages
 
-WirelessROS implements a comprehensive message ecosystem that supports domain-specific communication needs while maintaining compatibility with standard ROS messages. This section explains how these messages are defined, exchanged, and processed within the system.
+MobileROS implements a comprehensive message ecosystem that supports domain-specific communication needs while maintaining compatibility with standard ROS messages. This section explains how these messages are defined, exchanged, and processed within the system.
 
 ## Message Exchange Architecture
 
-The WirelessROS message exchange architecture is built upon the ROS publish-subscribe mechanism with several enhancements to support wireless-aware communication:
+The MobileROS message exchange architecture is built upon the ROS publish-subscribe mechanism with several enhancements to support wireless-aware communication:
 
 1. **Domain-Specific Message Types**: The system implements carefully designed message types that accurately reflect domain concepts and relationships. For instance, physical layer communication parameters are encapsulated in `ChannelState` messages, while communication constraints are represented through `Constraint` messages. 
 
@@ -1533,13 +1533,13 @@ The WirelessROS message exchange architecture is built upon the ROS publish-subs
 
    Each transformation step extracts meaning from the previous level and adds domain-specific intelligence, enabling cross-domain interpretation.
 
-3. **Efficient Topic Management**: The system implements a structured topic namespace hierarchy with `/wireless_ros/` as the root prefix. This organization allows components to easily locate relevant topics and minimizes the risk of namespace collisions. The implementation includes monitoring mechanisms that track message flow rates and detect potential bottlenecks.
+3. **Efficient Topic Management**: The system implements a structured topic namespace hierarchy with `/mobile_ros/` as the root prefix. This organization allows components to easily locate relevant topics and minimizes the risk of namespace collisions. The implementation includes monitoring mechanisms that track message flow rates and detect potential bottlenecks.
 
 4. **Message Callback Chains**: The implementation uses callback chaining, where receipt of a message triggers a sequence of processing steps, each potentially resulting in the publication of new messages. This callback chain architecture allows data to be progressively refined and interpreted as it flows through the system.
 
 ## Key Message Types
 
-WirelessROS defines several custom message types to represent domain-specific concepts:
+MobileROS defines several custom message types to represent domain-specific concepts:
 
 1. **ChannelState**: This message encapsulates the current state of a wireless channel for a specific user (RNTI). It includes physical parameters such as RSRP, SNR, CQI, and resource block usage statistics. The implementation stores both instantaneous values and derivative metrics calculated from these values.
 
@@ -1565,7 +1565,7 @@ The transformation between message types is implemented through specialized proc
 
 ## Message Delivery Reliability
 
-WirelessROS implements several mechanisms to ensure reliable message delivery despite the inherent unreliability of wireless communication:
+MobileROS implements several mechanisms to ensure reliable message delivery despite the inherent unreliability of wireless communication:
 
 1. **Message History Management**: Critical components maintain message history queues to handle message loss. For example, the Radio Information Engine keeps historical records of channel states, allowing it to interpolate missing values when needed.
 
@@ -1573,17 +1573,17 @@ WirelessROS implements several mechanisms to ensure reliable message delivery de
 
 3. **Timeout and Heartbeat Mechanisms**: Components implement timeout detection and periodic heartbeat messages to identify when communication has been lost, triggering appropriate recovery actions.
 
-These message handling mechanisms collectively enable WirelessROS to maintain a consistent and accurate view of the system state despite the challenges of wireless communication.
+These message handling mechanisms collectively enable MobileROS to maintain a consistent and accurate view of the system state despite the challenges of wireless communication.
 
 # ROS Integration
 
 ## Integration with Existing ROS Ecosystem
 
-WirelessROS is designed to seamlessly integrate with the existing ROS ecosystem while introducing wireless-awareness capabilities. This integration is implemented through several mechanisms:
+MobileROS is designed to seamlessly integrate with the existing ROS ecosystem while introducing wireless-awareness capabilities. This integration is implemented through several mechanisms:
 
 1. **Standard Interface Adoption**: The system adheres to standard ROS interfaces and conventions, ensuring compatibility with existing ROS tools and nodes. This implementation includes:
 
-   - The use of standard ROS namespacing conventions, with components organized under the `/wireless_ros/` namespace
+   - The use of standard ROS namespacing conventions, with components organized under the `/mobile_ros/` namespace
    - Standard ROS logging through `rospy.loginfo`, `rospy.logwarn`, and `rospy.logerr` for consistent log management
    - ROS parameter server integration for configuration management
    - Compatibility with ROS visualization tools like RViz for displaying communication-enhanced maps
@@ -1605,7 +1605,7 @@ WirelessROS is designed to seamlessly integrate with the existing ROS ecosystem 
        └── KeyValue[] (component-specific metrics)
    ```
 
-   The `publish_diagnostics` method generates these messages by aggregating status information from all system components, enabling standard ROS diagnostic tools to monitor WirelessROS health.
+   The `publish_diagnostics` method generates these messages by aggregating status information from all system components, enabling standard ROS diagnostic tools to monitor MobileROS health.
 
 4. **Transparent Topic Bridging**: The system implements transparent bridging between standard ROS topics and wireless-aware topics. For example, sensor data published on standard topics like `/camera/image_raw` is intercepted, analyzed for communication implications, and republished with appropriate adaptations based on network conditions.
 
@@ -1613,11 +1613,11 @@ WirelessROS is designed to seamlessly integrate with the existing ROS ecosystem 
 
 ## Launch File Configuration and Management
 
-WirelessROS employs a structured approach to launch file configuration that enables flexible deployment and configuration management:
+MobileROS employs a structured approach to launch file configuration that enables flexible deployment and configuration management:
 
 1. **Hierarchical Launch Structure**: The implementation uses a hierarchical launch file structure with:
 
-   - A master launch file (`wireless_ros.launch`) that coordinates the overall system startup
+   - A master launch file (`mobile_ros.launch`) that coordinates the overall system startup
    - Component-specific launch files that can be included or excluded based on deployment needs
    - Parameter-only launch files that define configuration sets for different operational scenarios
 
@@ -1657,21 +1657,21 @@ WirelessROS employs a structured approach to launch file configuration that enab
 
 ## ROS Services and Action Integration
 
-In addition to the publish-subscribe mechanism, WirelessROS integrates with ROS services and actions to implement request-response and long-running task patterns:
+In addition to the publish-subscribe mechanism, MobileROS integrates with ROS services and actions to implement request-response and long-running task patterns:
 
 1. **Service Implementation Architecture**: The system implements several ROS services for on-demand operations:
 
-   - `/wireless_ros/get_link_quality` service provides instantaneous link quality assessment
-   - `/wireless_ros/optimize_path` service analyzes and enhances paths for communication awareness
-   - `/wireless_ros/reconfigure_engine` service allows runtime engine parameter adjustments
+   - `/mobile_ros/get_link_quality` service provides instantaneous link quality assessment
+   - `/mobile_ros/optimize_path` service analyzes and enhances paths for communication awareness
+   - `/mobile_ros/reconfigure_engine` service allows runtime engine parameter adjustments
 
    These services are implemented using standard ROS service patterns, with service handlers that execute the requested operation and return the results.
 
 2. **Action Server Integration**: For long-running operations, the implementation includes ROS action servers:
 
-   - `/wireless_ros/enhance_map` action for communication-aware map enhancement
-   - `/wireless_ros/monitor_quality` action for continuous quality monitoring
-   - `/wireless_ros/optimize_strategy` action for iterative strategy optimization
+   - `/mobile_ros/enhance_map` action for communication-aware map enhancement
+   - `/mobile_ros/monitor_quality` action for continuous quality monitoring
+   - `/mobile_ros/optimize_strategy` action for iterative strategy optimization
 
    These action servers implement the ROS action protocol, including goal acceptance, feedback publication, and result generation.
 
@@ -1703,7 +1703,7 @@ In addition to the publish-subscribe mechanism, WirelessROS integrates with ROS 
 
 ## Startup Process
 
-The WirelessROS system implements a carefully orchestrated startup sequence to ensure proper initialization and dependency management:
+The MobileROS system implements a carefully orchestrated startup sequence to ensure proper initialization and dependency management:
 
 1. **Three-Phase Initialization**: The startup process is implemented as a three-phase sequence:
 
@@ -1749,7 +1749,7 @@ The WirelessROS system implements a carefully orchestrated startup sequence to e
 
 ## Fault Detection and Recovery
 
-WirelessROS implements a robust fault detection and recovery system to maintain operation even when components fail:
+MobileROS implements a robust fault detection and recovery system to maintain operation even when components fail:
 
 1. **Hierarchical Health Monitoring**: The implementation uses a hierarchical monitoring approach:
 
@@ -1793,7 +1793,7 @@ WirelessROS implements a robust fault detection and recovery system to maintain 
 
 ## Performance Monitoring and Optimization
 
-WirelessROS includes comprehensive performance monitoring and optimization mechanisms to maintain efficient operation:
+MobileROS includes comprehensive performance monitoring and optimization mechanisms to maintain efficient operation:
 
 1. **Multi-Level Metric Collection**: The implementation collects performance metrics at multiple levels:
 
@@ -1843,4 +1843,4 @@ WirelessROS includes comprehensive performance monitoring and optimization mecha
 
    These balancing mechanisms prevent individual components from becoming bottlenecks while maintaining critical functionality.
 
-Through these fault detection, recovery, and optimization mechanisms, WirelessROS maintains robust operation even in challenging environments, while efficiently utilizing available resources to deliver optimal performance.
+Through these fault detection, recovery, and optimization mechanisms, MobileROS maintains robust operation even in challenging environments, while efficiently utilizing available resources to deliver optimal performance.
