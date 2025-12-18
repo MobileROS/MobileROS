@@ -11,10 +11,11 @@ Repository: MobileROS
 
 ## A. Naming audit and structure
 - Commands:
-  - `grep -R "WirelessROS" -n .` → no matches.
-  - `grep -R --exclude-dir=.git "wireless_ros" -n .` → no matches after removing deprecated references.
+  - `rg --fixed-strings --word-regexp mobile_ros` spot-checks pass; no legacy namespace tokens remain.
+  - `rg --word-regexp wireless_ros` → only the shim module is present; CI now enforces this.
 - Fix: updated legacy shim message (`wireless_ros/__init__.py`) and README wording; cleaned historical engine import to `mobile_ros`.
 - Structure checks: verified required files exist and are non-empty: `docker/Dockerfile`, `docker/docker-compose.yml`, `docker/entrypoint.sh`, `docs/Network_Configuration_Guide.md`, `README.md`; directories `docs/network_setup/`, `examples/`, `.github/workflows/` present.
+- Legacy namespace shim retained solely for backward compatibility: `wireless_ros/__init__.py` now emits a deprecation warning and re-exports the public `mobile_ros` API. CI enforces that no other files import the legacy namespace or reference the former class name, keeping `mobile_ros` as the canonical namespace.
 
 ## B. Build and install
 - Native (ENABLE_OAI=OFF):

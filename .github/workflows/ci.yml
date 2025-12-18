@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Run legacy namespace check
+        run: ci-scripts/check_legacy_namespace.sh
       - name: Install dependencies
         run: |
           sudo apt-get update
