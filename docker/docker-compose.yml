@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  mobileros:
+    image: mobileros:latest
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    environment:
+      - ENABLE_OAI=${ENABLE_OAI:-OFF}
+    command: ["mobileros_example"]
+    # Uncomment the following lines when mapping radio hardware into the container.
+    # privileged: true
+    # devices:
+    #   - "/dev/bus/usb:/dev/bus/usb"
+    working_dir: /opt/mobileros

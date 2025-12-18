@@ -3,7 +3,7 @@
 This lightweight package adapter makes the repository's existing modules
 importable under the ``mobile_ros`` namespace without reorganizing the
 source tree. It ensures the examples that use ``from mobile_ros import ...``
-resolve correctly after the WirelessROS → MobileROS rename.
+resolve correctly after the legacy namespace rename.
 """
 from __future__ import annotations
 
