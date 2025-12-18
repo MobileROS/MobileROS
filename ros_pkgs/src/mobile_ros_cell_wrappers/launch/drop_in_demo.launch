@@ -1,0 +1,22 @@
+<launch>
+  <!-- Nodelet manager serving as Hub container -->
+  <node pkg="nodelet" type="nodelet" name="mobile_ros_hub_manager" args="manager" output="screen"/>
+
+  <node pkg="nodelet" type="nodelet" name="camera_wrapper" args="load mobile_ros_cell_wrappers/CameraCellWrapper mobile_ros_hub_manager" output="screen">
+    <remap from="/camera/image_raw" to="/demo/camera/image_raw"/>
+    <param name="output_topic" value="/drop_in/camera/image"/>
+    <param name="cell_name" value="demo_camera"/>
+  </node>
+
+  <node pkg="nodelet" type="nodelet" name="imu_wrapper" args="load mobile_ros_cell_wrappers/ImuCellWrapper mobile_ros_hub_manager" output="screen">
+    <remap from="/imu/data" to="/demo/imu/data"/>
+    <param name="output_topic" value="/drop_in/imu/data"/>
+    <param name="cell_name" value="demo_imu"/>
+  </node>
+
+  <node pkg="nodelet" type="nodelet" name="cmd_vel_wrapper" args="load mobile_ros_cell_wrappers/CmdVelCellWrapper mobile_ros_hub_manager" output="screen">
+    <remap from="/cmd_vel" to="/demo/cmd_vel"/>
+    <param name="output_topic" value="/drop_in/cmd_vel"/>
+    <param name="cell_name" value="demo_cmd_vel"/>
+  </node>
+</launch>

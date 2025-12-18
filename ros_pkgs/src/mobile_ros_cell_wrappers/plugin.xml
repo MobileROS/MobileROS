@@ -1,0 +1,11 @@
+<library path="lib/libmobile_ros_cell_wrappers">
+  <class name="mobile_ros_cell_wrappers/CameraCellWrapper" type="mobile_ros_cell_wrappers::CameraCellWrapper" base_class_type="nodelet::Nodelet">
+    <description>Network-aware camera wrapper</description>
+  </class>
+  <class name="mobile_ros_cell_wrappers/ImuCellWrapper" type="mobile_ros_cell_wrappers::ImuCellWrapper" base_class_type="nodelet::Nodelet">
+    <description>Network-aware IMU wrapper</description>
+  </class>
+  <class name="mobile_ros_cell_wrappers/CmdVelCellWrapper" type="mobile_ros_cell_wrappers::CmdVelCellWrapper" base_class_type="nodelet::Nodelet">
+    <description>Network-aware cmd_vel wrapper</description>
+  </class>
+</library>

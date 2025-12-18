@@ -1,0 +1,18 @@
+<launch>
+  <rosparam command="load" param="hub_container/wrappers">
+    - name: camera_wrapper
+      type: mobile_ros_cell_wrappers/CameraCellWrapper
+      remap: {"/camera/image_raw": "/demo/camera/image_raw"}
+      params: {"output_topic": "/drop_in/camera/image", "cell_name": "demo_camera"}
+    - name: imu_wrapper
+      type: mobile_ros_cell_wrappers/ImuCellWrapper
+      remap: {"/imu/data": "/demo/imu/data"}
+      params: {"output_topic": "/drop_in/imu/data", "cell_name": "demo_imu"}
+    - name: cmd_vel_wrapper
+      type: mobile_ros_cell_wrappers/CmdVelCellWrapper
+      remap: {"/cmd_vel": "/demo/cmd_vel"}
+      params: {"output_topic": "/drop_in/cmd_vel", "cell_name": "demo_cmd_vel"}
+  </rosparam>
+
+  <node pkg="mobile_ros_hub_manager" type="mobile_ros_hub_manager_node" name="hub_container" output="screen"/>
+</launch>
