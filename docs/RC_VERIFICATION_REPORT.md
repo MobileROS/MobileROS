@@ -16,6 +16,7 @@ Repository: MobileROS
 - Fix: updated legacy shim message (`wireless_ros/__init__.py`) and README wording; cleaned historical engine import to `mobile_ros`.
 - Structure checks: verified required files exist and are non-empty: `docker/Dockerfile`, `docker/docker-compose.yml`, `docker/entrypoint.sh`, `docs/Network_Configuration_Guide.md`, `README.md`; directories `docs/network_setup/`, `examples/`, `.github/workflows/` present.
 - Legacy namespace shim retained solely for backward compatibility: `wireless_ros/__init__.py` now emits a deprecation warning and re-exports the public `mobile_ros` API. CI enforces that no other files import the legacy namespace or reference the former class name, keeping `mobile_ros` as the canonical namespace.
+- Backward compatibility rationale: shim kept to avoid breaking downstream users that still import `wireless_ros`, but it contains only the forwarding `__init__.py` plus the warning, and CI explicitly blocks any new uses of the legacy namespace to guarantee `mobile_ros` remains the project’s primary entry point.
 
 ## B. Build and install
 - Native (ENABLE_OAI=OFF):
