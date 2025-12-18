@@ -22,7 +22,29 @@
 # Author: laurent THOMAS, Lionel GAUTHIER
 
 cmake_minimum_required (VERSION 3.12)
-project (OpenAirInterface LANGUAGES C CXX)
+project (MobileROS LANGUAGES C CXX)
+
+option(ENABLE_OAI "Build OpenAirInterface components for radio hardware" ON)
+message(STATUS "ENABLE_OAI=${ENABLE_OAI}")
+
+if(NOT ENABLE_OAI)
+  message(STATUS "Configuring MobileROS core without OAI dependencies. See docs/Network_Configuration_Guide.md for radio setup.")
+  set(CMAKE_CXX_STANDARD 17)
+  set(CMAKE_CXX_STANDARD_REQUIRED ON)
+  add_library(mobileros_core STATIC mobile_ros/core_stub.cpp)
+  target_include_directories(mobileros_core PUBLIC ${CMAKE_SOURCE_DIR})
+
+  add_executable(mobileros_example examples/mobileros_example.cpp)
+  target_include_directories(mobileros_example PRIVATE ${CMAKE_SOURCE_DIR})
+  target_link_libraries(mobileros_example PRIVATE mobileros_core)
+
+  install(FILES mobile_ros/core_stub.hpp DESTINATION include/mobile_ros)
+  install(TARGETS mobileros_core mobileros_example
+          RUNTIME DESTINATION bin
+          ARCHIVE DESTINATION lib
+          LIBRARY DESTINATION lib)
+  return()
+endif()
 
 #########################################################
 # Base directories, compatible with legacy OAI building #
@@ -43,11 +65,7 @@ include(FindPkgConfig)
 find_program(ASN1C_EXEC_PATH asn1c HINTS /opt/asn1c/bin)
 set(ASN1C_EXEC ${ASN1C_EXEC_PATH} CACHE FILEPATH "path to asn1c executable")
 if(NOT ASN1C_EXEC)
-    message(FATAL_ERROR "No asn1c found!
-You might want to re-run ./build_oai -I
-Or provide a path to asn1c using
-./build_oai ... --cmake-opt -DASN1C_EXEC=/path/to/asn1c
-")
+    message(FATAL_ERROR "ENABLE_OAI=ON requires asn1c. Install the asn1c compiler (see docs/Network_Configuration_Guide.md) or set ASN1C_EXEC=/path/to/asn1c.")
 endif()
 check_option(${ASN1C_EXEC} -gen-APER ASN1C_EXEC)
 check_option(${ASN1C_EXEC} -no-gen-UPER ASN1C_EXEC)
@@ -66,8 +84,6 @@ set (OPENAIR3_DIR    ${OPENAIR_DIR}/openair3)
 set (OPENAIR3_DIR    ${OPENAIR_DIR}/openair3)
 set (OPENAIR_CMAKE   ${OPENAIR_DIR}/cmake_targets)
 set (OPENAIR_BIN_DIR ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY})
-
-project (OpenAirInterface)
 
 ####################################################
 # compilation flags
