@@ -6,7 +6,7 @@ import time
 from datetime import datetime, timedelta
 from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
-from wireless_ros.msgs.msg import ChannelState
+from mobile_ros.msgs.msg import ChannelState
 
 class RadioInformationEngine:
     def __init__(self):
@@ -19,7 +19,7 @@ class RadioInformationEngine:
         self.influxdb_bucket = rospy.get_param('~influxdb_bucket', 'my_bucket')
         
         # 发布者
-        self.channel_state_pub = rospy.Publisher('/wireless_ros/channel_state', ChannelState, queue_size=10)
+        self.channel_state_pub = rospy.Publisher('/mobile_ros/channel_state', ChannelState, queue_size=10)
         
         # InfluxDB客户端
         self.client = InfluxDBClient(
