@@ -1,6 +1,6 @@
 # MobileROS
 
-MobileROS integrates radio-awareness directly into the robotics runtime. The repository now uses the unified `mobile_ros` namespace; a deprecated compatibility shim for the legacy namespace remains for backwards compatibility and will be removed in a future release.
+MobileROS integrates radio-awareness directly into the robotics runtime. The repository now uses the unified `mobile_ros` namespace; `wireless_ros` remains only as a deprecated compatibility shim and will be removed in a future release.
 
 ## Supported platforms
 - Ubuntu 20.04 LTS (tested)
