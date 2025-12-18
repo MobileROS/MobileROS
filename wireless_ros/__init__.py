@@ -1,15 +1,14 @@
-"""Compatibility shim for legacy imports.
+"""Compatibility shim for the legacy namespace.
 
-The project namespace has moved from ``wireless_ros`` to ``mobile_ros``. This
-module re-exports the new package to preserve compatibility with existing
-scripts while emitting a deprecation warning.
+This package re-exports :mod:`mobile_ros` so existing imports continue to
+work. The shim is deprecated; migrate to :mod:`mobile_ros` directly.
 """
 from __future__ import annotations
 
 import warnings
 
 warnings.warn(
-    "wireless_ros is deprecated; please migrate imports to mobile_ros",
+    "Legacy namespace is deprecated; please migrate imports to mobile_ros",
     DeprecationWarning,
     stacklevel=2,
 )
