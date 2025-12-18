@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mobile_ros_hub_manager</name>
+  <version>0.1.0</version>
+  <description>Hub nodelet container and pluginlib injector for MobileROS drop-in cells.</description>
+  <maintainer email="maintainer@example.com">MobileROS</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>nodelet</build_depend>
+  <build_depend>pluginlib</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>nodelet</exec_depend>
+  <exec_depend>pluginlib</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+</package>

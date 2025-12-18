@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="mobile_ros_hub_manager" type="mobile_ros_hub_manager_node" name="hub_container" output="screen">
+    <param name="wrappers" value="[]"/>
+  </node>
+</launch>

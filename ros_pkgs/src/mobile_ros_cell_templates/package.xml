@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mobile_ros_cell_templates</name>
+  <version>0.1.0</version>
+  <description>Template skeletons for additional MobileROS cell wrappers (TODO implementations).</description>
+  <maintainer email="maintainer@example.com">MobileROS</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>nodelet</exec_depend>
+  <exec_depend>pluginlib</exec_depend>
+</package>
