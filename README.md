@@ -13,7 +13,22 @@ The Docker workflow is the recommended, hardware-agnostic path:
 ./install.sh --docker
 ```
 
-This builds the image defined in `docker/Dockerfile`, installs the MobileROS core with `ENABLE_OAI=OFF`, and starts the default compose stack. Stop with `CTRL+C`. When you need radio hardware, set `ENABLE_OAI=ON` and enable device mapping as documented in [docs/Network_Configuration_Guide.md](docs/Network_Configuration_Guide.md).
+This builds the image defined in `docker/Dockerfile`, installs the MobileROS core with `ENABLE_OAI=OFF`, and starts the default compose stack. Stop with `CTRL+C`.
+
+For advanced scenarios (RFSIM without hardware, or USRP B210 with hardware passthrough), use the profiles-based compose:
+
+```bash
+# Software-only (core)
+docker compose -f docker/docker-compose.profiles.yml --profile core up --build
+
+# OAI with RF simulator (no hardware)
+docker compose -f docker/docker-compose.profiles.yml --profile rfsim up --build
+
+# OAI with USRP B210 (requires hardware)
+docker compose -f docker/docker-compose.profiles.yml --profile b210 up --build
+```
+
+See [docs/Docker_Guide.md](docs/Docker_Guide.md) for detailed instructions on each scenario, including OAI Core Network (CN5G) deployment.
 
 ## Native install (developers)
 Native builds are intended for advanced users. Dependencies are checked up front and will exit with actionable guidance if missing.
@@ -33,5 +48,6 @@ The native path builds only the MobileROS core (`ENABLE_OAI=OFF`) to avoid hardw
 4. For radio experiments, pick a config from `docs/network_setup/` and follow [docs/Network_Configuration_Guide.md](docs/Network_Configuration_Guide.md) before enabling OAI.
 
 ## Additional documentation
-- [Network Configuration Guide](docs/Network_Configuration_Guide.md): kernel/UHD expectations, OAI branch/commit, troubleshooting.
+- [Docker Guide](docs/Docker_Guide.md): reproducible Docker workflows for core/RFSIM/B210 scenarios, OAI CN5G deployment.
+- [Network Configuration Guide](docs/Network_Configuration_Guide.md): kernel/UHD expectations, OAI branch/commit, RRM policy loading, troubleshooting.
 - `docs/network_setup/`: curated OAI configuration files. `simulated/gnb.conf` aligns with the paper's simulated experiments; `indoor_lab/gnb.conf` matches the lab USRP setup.

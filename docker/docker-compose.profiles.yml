@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  mobileros-core:
+    image: mobileros:latest
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: core
+    environment:
+      - ENABLE_OAI=OFF
+    command: ["mobileros_example"]
+    working_dir: /opt/mobileros
+    profiles:
+      - core
+
+  mobileros-rfsim:
+    image: mobileros-oai:latest
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: oai
+    environment:
+      - ENABLE_OAI=ON
+      - USE_RFSIM=1
+    command: ["bash", "-c", "echo 'RFSIM mode: OAI stack initialized without hardware mapping' && sleep infinity"]
+    working_dir: /opt/mobileros
+    network_mode: host
+    profiles:
+      - rfsim
+
+  mobileros-b210:
+    image: mobileros-oai:latest
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: oai
+    privileged: true
+    environment:
+      - ENABLE_OAI=ON
+      - USE_B210=1
+    devices:
+      - "/dev/bus/usb:/dev/bus/usb"
+    command: ["bash", "-c", "uhd_usrp_probe && echo 'B210 detected; ready for gNB launch' && sleep infinity"]
+    working_dir: /opt/mobileros
+    network_mode: host
+    ulimits:
+      rtprio: 99
+      memlock:
+        soft: -1
+        hard: -1
+    profiles:
+      - b210

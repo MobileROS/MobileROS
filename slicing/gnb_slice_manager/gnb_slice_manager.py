@@ -2,16 +2,35 @@
 import argparse
 import json
 import logging
+import os
 import socket
 import threading
-from typing import Dict
+from typing import Dict, Optional
 
 logging.basicConfig(level=logging.INFO, format="[GNB-SLICE] %(asctime)s %(levelname)s: %(message)s")
 
 class PolicyExecutor:
-    def __init__(self):
+    def __init__(self, policy_file: Optional[str] = None):
         self.weights: Dict[str, float] = {}
         self.prb_alloc: Dict[str, int] = {}
+        self.rrm_policy = {}
+        if policy_file and os.path.exists(policy_file):
+            self.load_rrm_policy(policy_file)
+
+    def load_rrm_policy(self, policy_file: str):
+        try:
+            with open(policy_file, "r") as f:
+                self.rrm_policy = json.load(f)
+            logging.info("Loaded RRM policy from %s", policy_file)
+            if "rrmPolicyRatio" in self.rrm_policy:
+                logging.info("  Found %d rrmPolicyRatio entries", len(self.rrm_policy["rrmPolicyRatio"]))
+            if "subSlicePolicy" in self.rrm_policy and self.rrm_policy["subSlicePolicy"].get("enabled"):
+                logging.info("  Sub-slice policy enabled with %d sub-slices",
+                            len(self.rrm_policy.get("subSlicePolicy", {}).get("subSlices", [])))
+            if "ueSliceMapping" in self.rrm_policy:
+                logging.info("  UE slice mapping entries: %d", len(self.rrm_policy["ueSliceMapping"]))
+        except Exception as e:
+            logging.error("Failed to load RRM policy from %s: %s", policy_file, e)
 
     def update_policy(self, ue_id: str, criticality: float, intent: str):
         base_weight = 1.0 + criticality
@@ -72,12 +91,14 @@ def main():
     parser = argparse.ArgumentParser(description="Mock gNB slice manager + scheduler hooks")
     parser.add_argument("--report-bind", default="0.0.0.0:60000")
     parser.add_argument("--rrm-bind", default="0.0.0.0:60001")
+    parser.add_argument("--policy-file", default="rrmPolicy.json", help="Path to RRM policy JSON")
     args = parser.parse_args()
 
     report_host, report_port = args.report_bind.split(":")
     rrm_host, rrm_port = args.rrm_bind.split(":")
 
-    executor = PolicyExecutor()
+    policy_path = args.policy_file if os.path.isabs(args.policy_file) else os.path.join(os.getcwd(), args.policy_file)
+    executor = PolicyExecutor(policy_file=policy_path)
     threading.Thread(target=listen_for_reports, args=(report_host, int(report_port), executor), daemon=True).start()
     threading.Thread(target=listen_for_rrm_commands, args=(rrm_host, int(rrm_port), executor), daemon=True).start()
 

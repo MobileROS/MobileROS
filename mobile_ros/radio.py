@@ -1,6 +1,7 @@
 """Radio Information Engine with driver abstractions and SIGNAL_LOST detection."""
 from __future__ import annotations
 
+import os
 import threading
 import time
 from dataclasses import dataclass
@@ -102,6 +103,13 @@ class RadioInfoEngine:
             self._thread.join(timeout=1)
 
     def _loop(self) -> None:
+        force_signal_lost = os.getenv("FORCE_SIGNAL_LOST", "").lower() == "true"
+        if force_signal_lost and self._observer:
+            print("[RadioInfoEngine] FORCE_SIGNAL_LOST=true; emitting immediate SIGNAL_LOST")
+            mock_metrics = RadioMetrics(rsrp_dbm=-150.0, snr_db=0.0, prb_util=0.0, timestamp=time.time())
+            lost_update = ChannelUpdate(metrics=mock_metrics, event=SIGNAL_LOST, timestamp=time.time())
+            self._observer._emit(lost_update)
+
         while not self._stop.is_set():
             metrics = self.driver.read_metrics()
             now = time.time()

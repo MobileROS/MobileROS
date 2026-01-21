@@ -1,0 +1,108 @@
+name: oai-cn5g
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: oai-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: linux
+      MYSQL_DATABASE: oai_db
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-plinux"]
+      interval: 5s
+      timeout: 2s
+      retries: 30
+    networks:
+      public_net:
+        ipv4_address: 192.168.70.131
+
+  oai-nrf:
+    image: oaisoftwarealliance/oai-nrf:latest
+    container_name: oai-nrf
+    environment:
+      NRF_INTERFACE_NAME_FOR_SBI: eth0
+    networks:
+      public_net:
+        ipv4_address: 192.168.70.130
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  oai-amf:
+    image: oaisoftwarealliance/oai-amf:latest
+    container_name: oai-amf
+    environment:
+      AMF_INTERFACE_NAME_FOR_NGAP: eth0
+      AMF_INTERFACE_NAME_FOR_SBI: eth0
+      NRF_IPV4_ADDRESS: 192.168.70.130
+      MCC: "208"
+      MNC: "95"
+      TAC: "1"
+      SST: "1"
+      MYSQL_SERVER: 192.168.70.131
+      MYSQL_USER: root
+      MYSQL_PASS: linux
+      MYSQL_DB: oai_db
+    networks:
+      public_net:
+        ipv4_address: 192.168.70.132
+    depends_on:
+      oai-nrf:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+
+  oai-smf:
+    image: oaisoftwarealliance/oai-smf:latest
+    container_name: oai-smf
+    environment:
+      SMF_INTERFACE_NAME_FOR_N4: eth0
+      SMF_INTERFACE_NAME_FOR_SBI: eth0
+      NRF_IPV4_ADDRESS: 192.168.70.130
+      UPF_IPV4_ADDRESS: 192.168.70.134
+      MCC: "208"
+      MNC: "95"
+      SST: "1"
+    networks:
+      public_net:
+        ipv4_address: 192.168.70.133
+    depends_on:
+      oai-nrf:
+        condition: service_started
+
+  oai-upf:
+    image: oaisoftwarealliance/oai-upf:latest
+    container_name: oai-upf
+    privileged: true
+    environment:
+      UPF_INTERFACE_NAME_FOR_N3: eth0
+      UPF_INTERFACE_NAME_FOR_N4: eth0
+      MCC: "208"
+      MNC: "95"
+      SST: "1"
+    networks:
+      public_net:
+        ipv4_address: 192.168.70.134
+    depends_on:
+      oai-smf:
+        condition: service_started
+
+  oai-ext-dn:
+    image: oaisoftwarealliance/oai-ext-dn:latest
+    container_name: oai-ext-dn
+    privileged: true
+    networks:
+      public_net:
+        ipv4_address: 192.168.70.135
+    depends_on:
+      oai-upf:
+        condition: service_started
+
+networks:
+  public_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.70.128/26

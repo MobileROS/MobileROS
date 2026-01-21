@@ -45,6 +45,7 @@ class PhysicalAdaptiveEngine:
         rospy.Subscriber('/lidar/points', PointCloud2, self.lidar_callback)
         rospy.Subscriber('/mobile_ros/adaptation_recommendation', String, self.adaptation_recommendation_callback)
         rospy.Subscriber('/mobile_ros/task_criticality', Float32, self.task_criticality_callback)
+        rospy.Subscriber('/mobile_ros/global_policy', String, self.global_policy_callback)
         
         # 发布者 - 传输策略
         self.strategy_pub = rospy.Publisher('/mobile_ros/transmission_strategy', TransmissionStrategy, queue_size=10)
@@ -245,9 +246,24 @@ class PhysicalAdaptiveEngine:
     def adaptation_recommendation_callback(self, msg):
         """处理适应建议更新"""
         self.adaptation_recommendation = msg.data
-        def task_criticality_callback(self, msg):
+
+    def task_criticality_callback(self, msg):
         """处理任务关键度更新"""
         self.task_criticality = msg.data
+
+    def global_policy_callback(self, msg):
+        """处理 Hub 全局策略更新"""
+        policy = msg.data.split(":")[1].strip() if ":" in msg.data else msg.data
+        rospy.loginfo(f"Received global policy from Hub: {policy}")
+
+        if policy == "CONGESTION_CONTROL":
+            self.adaptation_recommendation = "EMERGENCY_CONSERVATION"
+        elif policy == "HIGH_EFFICIENCY":
+            self.adaptation_recommendation = "MAXIMIZE_DATA_COLLECTION"
+        elif policy == "RELIABILITY_FOCUS":
+            self.adaptation_recommendation = "MODERATE_CONSERVATION"
+        elif policy in ["BALANCED_OPERATION", "PERFORMANCE_FOCUS"]:
+            self.adaptation_recommendation = "NORMAL_OPERATION"
 
     def update_transmission_strategy(self, event=None):
         """根据当前通道状态和约束更新传输策略"""

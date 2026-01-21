@@ -18,6 +18,30 @@ It has been validated on **Ubuntu 20.04** and **Ubuntu 22.04** using the `develo
 - **Simulated gNB/UE loopback**: uses softmodem RF simulator, no radio hardware required. Configuration is in `docs/network_setup/simulated/gnb.conf`.
 - **Indoor USRP (lab)**: assumes a single USRP B210 connected over USB 3.0 with external 10 MHz clock. Configuration is in `docs/network_setup/indoor_lab/gnb.conf`.
 
+## RRM Policy and Slicing Configuration
+MobileROS slicing components load RRM policies from JSON files in the repository root:
+- `rrmPolicy.json`: Default RRM PRB allocation ratios for slices (SST/SD)
+- `rrmPolicy_sub.json`: Sub-slice policy with finer-grained UE scheduling weights
+- `rrmPolicy_sub_multiUE.json`: Multi-UE sub-slice mappings
+
+To use a custom policy, run the gNB slice manager with `--policy-file`:
+```bash
+python3 slicing/gnb_slice_manager/gnb_slice_manager.py --policy-file /path/to/custom_policy.json
+```
+The JSON schema expects:
+- `rrmPolicyRatio`: array of `{sST, sD, min_ratio, max_ratio}` per slice
+- `subSlicePolicy.enabled`: boolean, enables sub-slicing
+- `subSlicePolicy.subSlices`: array of `{sub_slice_id, parent_slice, min_ratio, max_ratio, priority}`
+- `ueSliceMapping`: dict mapping UE RNTI (hex string "0xXXXX") to `{target_slice, target_sub_slice, force_slice}`
+
+Example policy loading output:
+```
+[GNB-SLICE] Loaded RRM policy from rrmPolicy.json
+[GNB-SLICE]   Found 3 rrmPolicyRatio entries
+[GNB-SLICE]   Sub-slice policy enabled with 2 sub-slices
+[GNB-SLICE]   UE slice mapping entries: 2
+```
+
 ## Common issues
 - **Missing asn1c**: install the ASN.1 compiler (`sudo apt-get install asn1c`) or set `-DASN1C_EXEC=/path/to/asn1c`.
 - **UHD device not detected**: ensure the container runs with `--device /dev/bus/usb` or `--privileged` and the host udev rules are installed.

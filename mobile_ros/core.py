@@ -5,6 +5,7 @@ referenced in the P1 specification so they can run without ROS.
 """
 from __future__ import annotations
 
+import os
 import threading
 import time
 from dataclasses import dataclass, field
@@ -156,6 +157,18 @@ class Hub:
         self._monitor_thread.join(timeout=1)
 
     def _monitor(self) -> None:
+        force_degraded = os.getenv("FORCE_DEGRADED_MODE", "").lower() == "true"
+        if force_degraded:
+            print("[Hub] FORCE_DEGRADED_MODE=true detected; triggering immediate degraded mode")
+            for cell in self.cells.values():
+                cell.apply_cached_policy()
+                cell.handle_event(HUB_UNREACHABLE)
+            time.sleep(self.conservative_timeout + 1.0)
+            for cell in self.cells.values():
+                if not cell.conservative_mode:
+                    cell.apply_conservative_policy()
+                    cell.handle_event(HUB_UNREACHABLE)
+
         while not self._stop.is_set():
             now = time.time()
             for cell_id, cell in list(self.cells.items()):

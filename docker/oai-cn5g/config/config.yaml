@@ -1,0 +1,6 @@
+plmn:
+  mcc: "208"
+  mnc: "95"
+  tac: 1
+  nssai:
+    - sst: 1
