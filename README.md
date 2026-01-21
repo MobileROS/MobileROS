@@ -24,7 +24,7 @@ Native builds are intended for advanced users. Dependencies are checked up front
 ./build/mobileros_example
 ```
 
-The native path builds only the MobileROS core (`ENABLE_OAI=OFF`) to avoid hardware requirements. Enable OAI later with `cmake -S . -B build -DENABLE_OAI=ON` once you satisfy the network prerequisites in the network guide.
+The native path builds only the MobileROS core (`ENABLE_OAI=OFF`) to avoid hardware requirements. Enable OAI later with `cmake -S . -B build -DENABLE_OAI=ON` once you satisfy the network prerequisites in the network guide..
 
 ## Example workflow
 1. Clone the repo: `git clone https://github.com/MobileROS/MobileROS.git && cd MobileROS`
