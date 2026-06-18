@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import rospy
 import requests
 import json
@@ -29,7 +30,7 @@ class RadioInformationEngine(ChannelObserver):
         
         # InfluxDB配置
         self.influxdb_url = rospy.get_param('~influxdb_url', 'http://localhost:8086')
-        self.influxdb_token = rospy.get_param('~influxdb_token', 'LbUOm57nYdJp0trGuaI4TcSTvzeo5yJYsj5GtEC-EvkNmEFC35t4HyrMwWBanDhVRZmVW7iTqqXGTGB82DmG2g==')
+        self.influxdb_token = rospy.get_param('~influxdb_token', os.getenv('MOBILEROS_INFLUXDB_TOKEN', ''))
         self.influxdb_org = rospy.get_param('~influxdb_org', 'my_org')
         self.influxdb_bucket = rospy.get_param('~influxdb_bucket', 'my_bucket')
         

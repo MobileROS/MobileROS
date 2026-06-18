@@ -1,0 +1,227 @@
+{
+  "metadata": {
+    "paper": "MobileROS: A Wireless-Native Robot Operating System for Mobile Robotics",
+    "source": "paper_tables",
+    "note": "Reference values transcribed from the paper. Replay mode validates code paths against these references and does not represent a new hardware measurement."
+  },
+  "table_iii_orb_slam3_prb": {
+    "description": "MobileROS ORB-SLAM3 performance under slice-level PRB allocations, mean/std over 3 runs.",
+    "rows": {
+      "low_prb_30": {
+        "localization_slice_prbs": 10,
+        "link_rate_mbps": [4.67, 0.15],
+        "ul_latency_ms": [44.7, 1.5],
+        "packet_loss_rate_pct": [3.20, 0.20],
+        "jitter_ms": [14.0, 1.0],
+        "mean_abs_pose_error_m": [0.35, 0.03],
+        "std_pos_error_m": [0.10, 0.01],
+        "keyframe_rate_hz": [0.78, 0.03],
+        "track_longevity_frames": [19.0, 1.0]
+      },
+      "medium_prb_60": {
+        "localization_slice_prbs": 20,
+        "link_rate_mbps": [7.20, 0.10],
+        "ul_latency_ms": [28.3, 1.5],
+        "packet_loss_rate_pct": [1.93, 0.15],
+        "jitter_ms": [8.0, 1.0],
+        "mean_abs_pose_error_m": [0.22, 0.02],
+        "std_pos_error_m": [0.063, 0.006],
+        "keyframe_rate_hz": [1.10, 0.02],
+        "track_longevity_frames": [24.0, 1.0]
+      },
+      "high_prb_90": {
+        "localization_slice_prbs": 30,
+        "link_rate_mbps": [9.90, 0.10],
+        "ul_latency_ms": [15.3, 0.6],
+        "packet_loss_rate_pct": [0.50, 0.10],
+        "jitter_ms": [4.3, 0.6],
+        "mean_abs_pose_error_m": [0.14, 0.01],
+        "std_pos_error_m": [0.033, 0.006],
+        "keyframe_rate_hz": [1.32, 0.03],
+        "track_longevity_frames": [31.0, 1.0]
+      }
+    }
+  },
+  "table_iv_standard_ros_vs_mobileros": {
+    "description": "Constrained-resource baseline at 30% PRB.",
+    "rows": {
+      "standard_ros": {
+        "behavior": "blind_transmission",
+        "ul_latency_ms": [465.0, 130.0],
+        "packet_loss_rate_pct": 19.8,
+        "tracking_status": "frequent_loss",
+        "mean_pose_error_m": ">2.0"
+      },
+      "mobileros": {
+        "behavior": "adaptive_throttling",
+        "ul_latency_ms": [45.0, 2.0],
+        "packet_loss_rate_pct": 3.2,
+        "tracking_status": "stable",
+        "mean_pose_error_m": 0.35
+      }
+    }
+  },
+  "table_v_lidar_perception": {
+    "description": "Standard ROS vs static allocation vs MobileROS under periodic uplink reduction from 20 Mbps to 3 Mbps.",
+    "rows": {
+      "standard_ros": {
+        "available_ul_rate_mbps": [3.17, 0.15],
+        "ul_latency_ms": [92.3, 2.5],
+        "packet_loss_rate_pct": [5.50, 0.30],
+        "jitter_ms": [19.0, 1.0],
+        "ap_iou_0_5_all_pct": [77.2, 0.9],
+        "ap_iou_0_7_cars_pct": [64.2, 0.8],
+        "detection_fps": [9.2, 0.3],
+        "frame_drop_rate_pct": [5.77, 0.25],
+        "per_frame_latency_ms": [111.0, 3.6]
+      },
+      "static_allocation": {
+        "available_ul_rate_mbps": [6.40, 0.10],
+        "ul_latency_ms": [29.0, 1.0],
+        "packet_loss_rate_pct": [1.87, 0.15],
+        "jitter_ms": [9.3, 0.6],
+        "ap_iou_0_5_all_pct": [84.5, 0.6],
+        "ap_iou_0_7_cars_pct": [72.8, 0.3],
+        "detection_fps": [14.6, 0.2],
+        "frame_drop_rate_pct": [2.10, 0.10],
+        "per_frame_latency_ms": [65.3, 2.5]
+      },
+      "mobileros": {
+        "available_ul_rate_mbps": [9.53, 0.15],
+        "ul_latency_ms": [15.0, 1.0],
+        "packet_loss_rate_pct": [0.50, 0.10],
+        "jitter_ms": [4.7, 0.6],
+        "ap_iou_0_5_all_pct": [89.6, 0.5],
+        "ap_iou_0_7_cars_pct": [80.5, 0.5],
+        "detection_fps": [17.8, 0.4],
+        "frame_drop_rate_pct": [0.67, 0.15],
+        "per_frame_latency_ms": [37.7, 2.5]
+      }
+    }
+  },
+  "table_vi_active_slicing": {
+    "description": "Emergency stop under congestion with active slicing.",
+    "rows": {
+      "standard_ros2": {
+        "slice_upgrade_capability": false,
+        "slice_reconfiguration_ms": null,
+        "prb_allocation_peak_pct": 10,
+        "e2e_latency_normal_ms": [85.0, 12.0],
+        "e2e_latency_congestion_ms": [520.0, 95.0],
+        "latency_spike_ratio": 6.1,
+        "emergency_command_success_rate_pct": 62.5,
+        "average_command_delivery_ms": [380.0, 85.0],
+        "obstacle_response": "fail_3_of_8"
+      },
+      "mobileros_passive": {
+        "slice_upgrade_capability": false,
+        "slice_reconfiguration_ms": null,
+        "prb_allocation_peak_pct": 10,
+        "e2e_latency_normal_ms": [62.0, 8.0],
+        "e2e_latency_congestion_ms": [285.0, 35.0],
+        "latency_spike_ratio": 4.6,
+        "emergency_command_success_rate_pct": 87.5,
+        "average_command_delivery_ms": [195.0, 40.0],
+        "obstacle_response": "pass_7_of_8"
+      },
+      "mobileros_active": {
+        "slice_upgrade_capability": true,
+        "slice_reconfiguration_ms": [120.0, 15.0],
+        "prb_allocation_peak_pct": 45,
+        "e2e_latency_normal_ms": [58.0, 6.0],
+        "e2e_latency_congestion_ms": [148.0, 18.0],
+        "latency_spike_ratio": 2.6,
+        "emergency_command_success_rate_pct": 100.0,
+        "average_command_delivery_ms": [92.0, 12.0],
+        "obstacle_response": "pass_8_of_8"
+      }
+    }
+  },
+  "table_vii_multi_robot": {
+    "description": "Heterogeneous multi-robot localization over 10 trials.",
+    "rows": {
+      "ros1_tcp": {
+        "translation_error_m": [0.49, 0.08],
+        "rotation_error_deg": [8.11, 1.2],
+        "transport_latency_ms": ">500",
+        "effective_throughput_mbps": [0.8, 0.2],
+        "feature_match_rate_pct": [45.0, 8.0],
+        "data_integrity": "delayed"
+      },
+      "ros2_dds": {
+        "translation_error_m": [0.42, 0.06],
+        "rotation_error_deg": [4.38, 0.9],
+        "transport_latency_ms": [480.0, 55.0],
+        "effective_throughput_mbps": [1.2, 0.3],
+        "feature_match_rate_pct": [52.0, 10.0],
+        "data_integrity": "delayed"
+      },
+      "webrtc_gcc": {
+        "translation_error_m": [0.38, 0.07],
+        "rotation_error_deg": [5.12, 1.1],
+        "transport_latency_ms": [55.0, 12.0],
+        "effective_throughput_mbps": [1.6, 0.2],
+        "feature_match_rate_pct": [61.0, 7.0],
+        "data_integrity": "corrupted"
+      },
+      "mobileros": {
+        "translation_error_m": [0.06, 0.02],
+        "rotation_error_deg": [0.64, 0.15],
+        "transport_latency_ms": [45.0, 8.0],
+        "effective_throughput_mbps": [1.8, 0.15],
+        "feature_match_rate_pct": [94.0, 3.0],
+        "data_integrity": "preserved"
+      }
+    }
+  },
+  "table_viii_partition": {
+    "description": "Network partition resilience over 10 trials.",
+    "rows": {
+      "standard_ros2_nav2_dds": {
+        "partition_detection_time_ms": [5000.0, 120.0],
+        "mode_transition_time_ms": null,
+        "outage_behavior": "freeze_abort",
+        "collision_events": "2/10",
+        "system_liveness_pct": 0,
+        "safe_hold_success_rate_pct": null,
+        "auto_recovery_success_pct": 0,
+        "resync_time_after_reconnect_ms": null
+      },
+      "mobileros_circuit_breaker": {
+        "partition_detection_time_ms": [85.0, 12.0],
+        "mode_transition_time_ms": [45.0, 8.0],
+        "outage_behavior": "degraded_safe_hold",
+        "collision_events": "0/10",
+        "system_liveness_pct": 100,
+        "safe_hold_success_rate_pct": 100,
+        "auto_recovery_success_pct": 100,
+        "resync_time_after_reconnect_ms": [350.0, 45.0]
+      }
+    }
+  },
+  "table_ix_resource_management": {
+    "description": "MobileROS network resource management analysis.",
+    "rows": {
+      "control_messages": {
+        "bandwidth_allocation_pct": [[16.2, 1.8], [9.7, 1.2], [4.8, 0.9]],
+        "priority_by_condition": [[94, 3], [89, 2], [83, 3], [78, 2], [73, 4]]
+      },
+      "perception_data": {
+        "bandwidth_allocation_pct": [[34.6, 2.3], [31.2, 1.5], [24.1, 2.1]],
+        "priority_by_condition": [[42, 3], [52, 4], [68, 3], [87, 3], [93, 2]]
+      },
+      "mapping_data": {
+        "bandwidth_allocation_pct": [[24.3, 1.7], [29.5, 2.2], [36.3, 1.8]],
+        "priority_by_condition": [[21, 2], [32, 3], [61, 2], [83, 4], [96, 2]]
+      },
+      "planning_data": {
+        "bandwidth_allocation_pct": [[14.8, 1.5], [19.2, 1.7], [26.4, 1.9]],
+        "priority_by_condition": [[37, 2], [46, 3], [67, 4], [79, 3], [91, 3]]
+      },
+      "telemetry_data": {
+        "bandwidth_allocation_pct": [[10.3, 0.8], [9.6, 1.1], [9.8, 0.7]],
+        "priority_by_condition": [[76, 3], [71, 2], [64, 3], [61, 2], [57, 3]]
+      }
+    }
+  }
+}

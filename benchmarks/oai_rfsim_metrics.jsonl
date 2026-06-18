@@ -1,0 +1,4 @@
+{"timestamp": 0.0, "ue_id": "ue-slam-01", "rnti": "0x4601", "sinr_db": 5.0, "rsrp_dbm": -92.0, "rsrq_db": -9.5, "prb_util": 0.30, "mcs": 9, "throughput_mbps": 4.67, "latency_ms": 44.7, "packet_loss_pct": 3.20, "jitter_ms": 14.0}
+{"timestamp": 1.0, "ue_id": "ue-slam-01", "rnti": "0x4601", "sinr_db": 9.0, "rsrp_dbm": -86.0, "rsrq_db": -8.0, "prb_util": 0.60, "mcs": 14, "throughput_mbps": 7.20, "latency_ms": 28.3, "packet_loss_pct": 1.93, "jitter_ms": 8.0}
+{"timestamp": 2.0, "ue_id": "ue-slam-01", "rnti": "0x4601", "sinr_db": 15.0, "rsrp_dbm": -79.0, "rsrq_db": -6.5, "prb_util": 0.90, "mcs": 21, "throughput_mbps": 9.90, "latency_ms": 15.3, "packet_loss_pct": 0.50, "jitter_ms": 4.3}
+{"timestamp": 3.0, "ue_id": "ue-slam-01", "rnti": "0x4601", "sinr_db": 4.0, "rsrp_dbm": -95.0, "rsrq_db": -10.5, "prb_util": 0.30, "mcs": 8, "throughput_mbps": 4.67, "latency_ms": 44.7, "packet_loss_pct": 3.20, "jitter_ms": 14.0}

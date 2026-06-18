@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+benchmarks/results/*.tmp
+benchmarks/results/*.log
+tools/dashboard_error.log
+
+build/
+devel/
+install/
+log/

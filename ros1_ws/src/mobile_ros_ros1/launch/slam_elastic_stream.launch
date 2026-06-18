@@ -1,0 +1,17 @@
+<launch>
+  <arg name="metrics_source" default="jsonl" />
+  <arg name="metrics_jsonl" default="$(find mobile_ros_ros1)/../../../benchmarks/oai_rfsim_metrics.jsonl" />
+  <arg name="camera_in" default="/camera/image_raw" />
+  <arg name="camera_out" default="/camera/mobile_ros/image" />
+
+  <node pkg="mobile_ros_ros1" type="mobile_ros_hub_node.py" name="mobile_ros_hub" output="screen">
+    <param name="metrics_source" value="$(arg metrics_source)" />
+    <param name="metrics_jsonl" value="$(arg metrics_jsonl)" />
+    <param name="rate_hz" value="10.0" />
+  </node>
+
+  <node pkg="mobile_ros_ros1" type="camera_cell_node.py" name="mobile_ros_camera_cell" output="screen">
+    <param name="input_topic" value="$(arg camera_in)" />
+    <param name="output_topic" value="$(arg camera_out)" />
+  </node>
+</launch>
