@@ -12,11 +12,12 @@ catkin_make
 source devel/setup.bash
 ```
 
-## SLAM elastic stream demo
+## Full-stack demo
 
 ```bash
-roslaunch mobile_ros_ros1 slam_elastic_stream.launch metrics_jsonl:=$(pwd)/../benchmarks/oai_rfsim_metrics.jsonl
+roslaunch mobile_ros_ros1 full_stack.launch metrics_jsonl:=$(pwd)/../benchmarks/oai_rfsim_metrics.jsonl
 ```
 
-The launch file wraps a camera topic with MobileROS policy updates. Replace the
-input topic with the ORB-SLAM3 camera feed in the robot launch file.
+The launch file starts Hub, Camera, SLAM feature stream, LiDAR adaptive voxel,
+slice client, V2X safety, and partition nodes. Replace the camera and point
+cloud input topics with the robot task topics.

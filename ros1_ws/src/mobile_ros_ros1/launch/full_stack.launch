@@ -1,0 +1,34 @@
+<launch>
+  <arg name="metrics_source" default="jsonl" />
+  <arg name="metrics_jsonl" default="$(find mobile_ros_ros1)/../../../benchmarks/oai_rfsim_metrics.jsonl" />
+  <arg name="camera_in" default="/camera/image_raw" />
+  <arg name="camera_out" default="/camera/mobile_ros/image" />
+  <arg name="points_in" default="/points_raw" />
+  <arg name="points_out" default="/points/mobile_ros" />
+  <arg name="slice_host" default="127.0.0.1" />
+  <arg name="slice_port" default="63000" />
+
+  <include file="$(find mobile_ros_ros1)/launch/slam_elastic_stream.launch">
+    <arg name="metrics_source" value="$(arg metrics_source)" />
+    <arg name="metrics_jsonl" value="$(arg metrics_jsonl)" />
+    <arg name="camera_in" value="$(arg camera_in)" />
+    <arg name="camera_out" value="$(arg camera_out)" />
+  </include>
+
+  <node pkg="mobile_ros_ros1" type="slam_task_node.py" name="mobile_ros_slam_task" output="screen">
+    <param name="input_topic" value="$(arg camera_out)" />
+  </node>
+
+  <node pkg="mobile_ros_ros1" type="lidar_cell_node.py" name="mobile_ros_lidar_cell" output="screen">
+    <param name="input_topic" value="$(arg points_in)" />
+    <param name="output_topic" value="$(arg points_out)" />
+  </node>
+
+  <node pkg="mobile_ros_ros1" type="slice_client_node.py" name="mobile_ros_slice_client" output="screen">
+    <param name="slice_host" value="$(arg slice_host)" />
+    <param name="slice_port" value="$(arg slice_port)" />
+  </node>
+
+  <node pkg="mobile_ros_ros1" type="v2x_safety_node.py" name="mobile_ros_v2x_safety" output="screen" />
+  <node pkg="mobile_ros_ros1" type="partition_node.py" name="mobile_ros_partition" output="screen" />
+</launch>

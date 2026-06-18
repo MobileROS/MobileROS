@@ -12,11 +12,12 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 
-## SLAM elastic stream demo
+## Full-stack demo
 
 ```bash
-ros2 launch mobile_ros_ros2 slam_elastic_stream.launch.py metrics_jsonl:=$(pwd)/../benchmarks/oai_rfsim_metrics.jsonl
+ros2 launch mobile_ros_ros2 full_stack.launch.py metrics_jsonl:=$(pwd)/../benchmarks/oai_rfsim_metrics.jsonl
 ```
 
-Use `/camera/mobile_ros/image` as the camera input for ORB-SLAM3 or another
-visual SLAM frontend.
+The launch file starts Hub, Camera, SLAM feature stream, LiDAR adaptive voxel,
+slice client, V2X safety, and partition nodes. Use `/camera/mobile_ros/image`
+as the camera input for ORB-SLAM3 or another visual SLAM frontend.

@@ -45,7 +45,17 @@ from mobile_ros.core import (
 )
 from mobile_ros.radio import RadioInfoEngine, RadioDriverBase, MockRadioDriver, OAIRadioDriver, RadioMetrics
 from mobile_ros.oai import OaiMetricRecord, JsonlMetricProvider, UdpMetricProvider, SharedMemoryMetricProvider
-from mobile_ros.policies import NetworkSnapshot, StreamPolicy, build_stream_policy, policy_from_mapping
+from mobile_ros.policies import (
+    NetworkSnapshot,
+    StreamPolicy,
+    build_stream_policy,
+    policy_from_mapping,
+    stream_policy_from_mapping,
+    stream_policy_to_mapping,
+)
+from mobile_ros.runtime import MobileRosRuntime, SequenceMetricProvider
+from mobile_ros.slicing import PolicySliceMapper, RecordingSliceClient, SliceCommand, UdpSliceClient
+from mobile_ros.types import ImageFrame, PointCloudFrame, RuntimeMode, TaskState, TaskType
 
 __all__ = [
     "ChannelObserver",
@@ -68,6 +78,19 @@ __all__ = [
     "StreamPolicy",
     "build_stream_policy",
     "policy_from_mapping",
+    "stream_policy_from_mapping",
+    "stream_policy_to_mapping",
+    "MobileRosRuntime",
+    "SequenceMetricProvider",
+    "PolicySliceMapper",
+    "RecordingSliceClient",
+    "SliceCommand",
+    "UdpSliceClient",
+    "ImageFrame",
+    "PointCloudFrame",
+    "RuntimeMode",
+    "TaskState",
+    "TaskType",
     "RosHub",
     "CellBase",
     "RadioInformationEngine",

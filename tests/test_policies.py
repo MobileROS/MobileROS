@@ -9,6 +9,8 @@ from mobile_ros.policies import (
     adaptive_voxel_leaf_size,
     build_stream_policy,
     elastic_stream_keyframe_limit,
+    stream_policy_from_mapping,
+    stream_policy_to_mapping,
 )
 
 
@@ -41,6 +43,22 @@ class PolicyTests(unittest.TestCase):
         self.assertIn(policy.quality, {NetworkQuality.POOR, NetworkQuality.MODERATE})
         self.assertEqual(policy.slice_action, SliceAction.PROMOTE)
         self.assertLessEqual(policy.jpeg_quality, 65)
+
+    def test_policy_json_round_trip(self):
+        policy = build_stream_policy(
+            NetworkSnapshot(
+                throughput_mbps=9.9,
+                latency_ms=15.3,
+                packet_loss_pct=0.5,
+                jitter_ms=4.3,
+                prb_allocation_pct=90.0,
+            ),
+            task_criticality=0.7,
+        )
+        restored = stream_policy_from_mapping(stream_policy_to_mapping(policy))
+        self.assertEqual(restored.quality, policy.quality)
+        self.assertEqual(restored.slice_action, policy.slice_action)
+        self.assertEqual(restored.jpeg_quality, policy.jpeg_quality)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,1064 @@
+{
+  "lidar": {
+    "observations": [
+      {
+        "estimated_bytes": 2160,
+        "input_points": 2500,
+        "output_points": 180,
+        "sequence": 0,
+        "voxel_leaf_size_m": 0.215
+      },
+      {
+        "estimated_bytes": 3996,
+        "input_points": 2500,
+        "output_points": 333,
+        "sequence": 1,
+        "voxel_leaf_size_m": 0.196
+      },
+      {
+        "estimated_bytes": 4608,
+        "input_points": 2500,
+        "output_points": 384,
+        "sequence": 2,
+        "voxel_leaf_size_m": 0.176
+      },
+      {
+        "estimated_bytes": 2160,
+        "input_points": 2500,
+        "output_points": 180,
+        "sequence": 3,
+        "voxel_leaf_size_m": 0.215
+      },
+      {
+        "estimated_bytes": 2160,
+        "input_points": 2500,
+        "output_points": 180,
+        "sequence": 4,
+        "voxel_leaf_size_m": 0.215
+      },
+      {
+        "estimated_bytes": 3984,
+        "input_points": 2500,
+        "output_points": 332,
+        "sequence": 5,
+        "voxel_leaf_size_m": 0.196
+      },
+      {
+        "estimated_bytes": 4656,
+        "input_points": 2500,
+        "output_points": 388,
+        "sequence": 6,
+        "voxel_leaf_size_m": 0.176
+      },
+      {
+        "estimated_bytes": 2160,
+        "input_points": 2500,
+        "output_points": 180,
+        "sequence": 7,
+        "voxel_leaf_size_m": 0.215
+      },
+      {
+        "estimated_bytes": 2160,
+        "input_points": 2500,
+        "output_points": 180,
+        "sequence": 8,
+        "voxel_leaf_size_m": 0.215
+      },
+      {
+        "estimated_bytes": 4008,
+        "input_points": 2500,
+        "output_points": 334,
+        "sequence": 9,
+        "voxel_leaf_size_m": 0.196
+      },
+      {
+        "estimated_bytes": 4632,
+        "input_points": 2500,
+        "output_points": 386,
+        "sequence": 10,
+        "voxel_leaf_size_m": 0.176
+      },
+      {
+        "estimated_bytes": 2160,
+        "input_points": 2500,
+        "output_points": 180,
+        "sequence": 11,
+        "voxel_leaf_size_m": 0.215
+      },
+      {
+        "estimated_bytes": 2160,
+        "input_points": 2500,
+        "output_points": 180,
+        "sequence": 12,
+        "voxel_leaf_size_m": 0.215
+      },
+      {
+        "estimated_bytes": 4008,
+        "input_points": 2500,
+        "output_points": 334,
+        "sequence": 13,
+        "voxel_leaf_size_m": 0.196
+      },
+      {
+        "estimated_bytes": 4644,
+        "input_points": 2500,
+        "output_points": 387,
+        "sequence": 14,
+        "voxel_leaf_size_m": 0.176
+      },
+      {
+        "estimated_bytes": 2160,
+        "input_points": 2500,
+        "output_points": 180,
+        "sequence": 15,
+        "voxel_leaf_size_m": 0.215
+      },
+      {
+        "estimated_bytes": 2160,
+        "input_points": 2500,
+        "output_points": 180,
+        "sequence": 16,
+        "voxel_leaf_size_m": 0.215
+      },
+      {
+        "estimated_bytes": 3996,
+        "input_points": 2500,
+        "output_points": 333,
+        "sequence": 17,
+        "voxel_leaf_size_m": 0.196
+      },
+      {
+        "estimated_bytes": 4644,
+        "input_points": 2500,
+        "output_points": 387,
+        "sequence": 18,
+        "voxel_leaf_size_m": 0.176
+      },
+      {
+        "estimated_bytes": 2160,
+        "input_points": 2500,
+        "output_points": 180,
+        "sequence": 19,
+        "voxel_leaf_size_m": 0.215
+      }
+    ],
+    "summary": {
+      "bytes": 64776.0,
+      "frames": 20.0,
+      "mean_reduction_ratio": 0.892
+    }
+  },
+  "multi_robot": {
+    "fragments": [
+      {
+        "bytes_estimate": 50400,
+        "points": 3150,
+        "priority": 80,
+        "robot_id": "robot-0",
+        "sequence": 1
+      },
+      {
+        "bytes_estimate": 57600,
+        "points": 3600,
+        "priority": 65,
+        "robot_id": "robot-1",
+        "sequence": 2
+      },
+      {
+        "bytes_estimate": 38400,
+        "points": 2400,
+        "priority": 55,
+        "robot_id": "robot-2",
+        "sequence": 3
+      },
+      {
+        "bytes_estimate": 50400,
+        "points": 3150,
+        "priority": 80,
+        "robot_id": "robot-0",
+        "sequence": 4
+      },
+      {
+        "bytes_estimate": 43200,
+        "points": 2700,
+        "priority": 80,
+        "robot_id": "robot-1",
+        "sequence": 5
+      },
+      {
+        "bytes_estimate": 38400,
+        "points": 2400,
+        "priority": 65,
+        "robot_id": "robot-2",
+        "sequence": 6
+      },
+      {
+        "bytes_estimate": 67200,
+        "points": 4200,
+        "priority": 55,
+        "robot_id": "robot-0",
+        "sequence": 7
+      },
+      {
+        "bytes_estimate": 43200,
+        "points": 2700,
+        "priority": 80,
+        "robot_id": "robot-1",
+        "sequence": 8
+      },
+      {
+        "bytes_estimate": 28800,
+        "points": 1800,
+        "priority": 80,
+        "robot_id": "robot-2",
+        "sequence": 9
+      },
+      {
+        "bytes_estimate": 67200,
+        "points": 4200,
+        "priority": 65,
+        "robot_id": "robot-0",
+        "sequence": 10
+      },
+      {
+        "bytes_estimate": 57600,
+        "points": 3600,
+        "priority": 55,
+        "robot_id": "robot-1",
+        "sequence": 11
+      },
+      {
+        "bytes_estimate": 28800,
+        "points": 1800,
+        "priority": 80,
+        "robot_id": "robot-2",
+        "sequence": 12
+      },
+      {
+        "bytes_estimate": 50400,
+        "points": 3150,
+        "priority": 80,
+        "robot_id": "robot-0",
+        "sequence": 13
+      },
+      {
+        "bytes_estimate": 57600,
+        "points": 3600,
+        "priority": 65,
+        "robot_id": "robot-1",
+        "sequence": 14
+      },
+      {
+        "bytes_estimate": 38400,
+        "points": 2400,
+        "priority": 55,
+        "robot_id": "robot-2",
+        "sequence": 15
+      },
+      {
+        "bytes_estimate": 50400,
+        "points": 3150,
+        "priority": 80,
+        "robot_id": "robot-0",
+        "sequence": 16
+      },
+      {
+        "bytes_estimate": 43200,
+        "points": 2700,
+        "priority": 80,
+        "robot_id": "robot-1",
+        "sequence": 17
+      },
+      {
+        "bytes_estimate": 38400,
+        "points": 2400,
+        "priority": 65,
+        "robot_id": "robot-2",
+        "sequence": 18
+      },
+      {
+        "bytes_estimate": 67200,
+        "points": 4200,
+        "priority": 55,
+        "robot_id": "robot-0",
+        "sequence": 19
+      },
+      {
+        "bytes_estimate": 43200,
+        "points": 2700,
+        "priority": 80,
+        "robot_id": "robot-1",
+        "sequence": 20
+      }
+    ],
+    "summary": {
+      "bytes": 960000.0,
+      "fragments": 20.0,
+      "points": 60000.0
+    }
+  },
+  "partition": {
+    "edge_stages": [],
+    "estimated_latency_ms": 193.0,
+    "estimated_upload_mb": 0.0,
+    "local_stages": [
+      "sensor_preprocess",
+      "feature_extract",
+      "tracking",
+      "mapping",
+      "loop_closure"
+    ],
+    "reason": "network_moderate"
+  },
+  "runtime": {
+    "cells": {
+      "camera": {
+        "accepted": 0,
+        "dropped": 0,
+        "emitted_bytes": 0,
+        "last_emit_time": null
+      },
+      "lidar": {
+        "accepted": 0,
+        "dropped": 0,
+        "emitted_bytes": 0,
+        "last_emit_time": null
+      },
+      "slam": {
+        "accepted": 0,
+        "dropped": 0,
+        "emitted_bytes": 0,
+        "last_emit_time": null
+      }
+    },
+    "events": [
+      {
+        "details": {
+          "mode": "rfsim",
+          "policy": {
+            "jpeg_quality": 61,
+            "keyframe_rate_hz": 0.9,
+            "orb_max_keyframes_per_second": 9,
+            "priority": 85,
+            "publish_rate_hz": 8.4,
+            "quality": "moderate",
+            "resolution_scale": 0.75,
+            "slice_action": "hold",
+            "voxel_leaf_size_m": 0.215
+          },
+          "slice_command": {
+            "action": "hold",
+            "max_latency_ms": 70.0,
+            "min_prb_pct": 75.5,
+            "priority": 85,
+            "reason": "slam:moderate",
+            "task_type": "visual_slam",
+            "timestamp": 1781824876.5353982,
+            "ue_id": "ue-slam-01"
+          },
+          "snapshot": {
+            "jitter_ms": 14.0,
+            "latency_ms": 44.7,
+            "packet_loss_pct": 3.2,
+            "prb_allocation_pct": 30.0,
+            "rsrp_dbm": -92.0,
+            "snr_db": 5.0,
+            "throughput_mbps": 4.67
+          },
+          "timestamp": 0.0
+        },
+        "name": "runtime_step",
+        "timestamp": 0.0
+      },
+      {
+        "details": {
+          "mode": "rfsim",
+          "policy": {
+            "jpeg_quality": 78,
+            "keyframe_rate_hz": 1.14,
+            "orb_max_keyframes_per_second": 14,
+            "priority": 70,
+            "publish_rate_hz": 13.0,
+            "quality": "good",
+            "resolution_scale": 1.0,
+            "slice_action": "hold",
+            "voxel_leaf_size_m": 0.196
+          },
+          "slice_command": {
+            "action": "hold",
+            "max_latency_ms": 70.0,
+            "min_prb_pct": 71.0,
+            "priority": 70,
+            "reason": "slam:good",
+            "task_type": "visual_slam",
+            "timestamp": 1.0,
+            "ue_id": "ue-slam-01"
+          },
+          "snapshot": {
+            "jitter_ms": 8.0,
+            "latency_ms": 28.3,
+            "packet_loss_pct": 1.93,
+            "prb_allocation_pct": 60.0,
+            "rsrp_dbm": -86.0,
+            "snr_db": 9.0,
+            "throughput_mbps": 7.2
+          },
+          "timestamp": 1.0
+        },
+        "name": "runtime_step",
+        "timestamp": 1.0
+      },
+      {
+        "details": {
+          "mode": "rfsim",
+          "policy": {
+            "jpeg_quality": 95,
+            "keyframe_rate_hz": 1.39,
+            "orb_max_keyframes_per_second": 20,
+            "priority": 60,
+            "publish_rate_hz": 17.8,
+            "quality": "excellent",
+            "resolution_scale": 1.0,
+            "slice_action": "hold",
+            "voxel_leaf_size_m": 0.176
+          },
+          "slice_command": {
+            "action": "hold",
+            "max_latency_ms": 70.0,
+            "min_prb_pct": 68.0,
+            "priority": 60,
+            "reason": "slam:excellent",
+            "task_type": "visual_slam",
+            "timestamp": 2.0,
+            "ue_id": "ue-slam-01"
+          },
+          "snapshot": {
+            "jitter_ms": 4.3,
+            "latency_ms": 15.3,
+            "packet_loss_pct": 0.5,
+            "prb_allocation_pct": 90.0,
+            "rsrp_dbm": -79.0,
+            "snr_db": 15.0,
+            "throughput_mbps": 9.9
+          },
+          "timestamp": 2.0
+        },
+        "name": "runtime_step",
+        "timestamp": 2.0
+      },
+      {
+        "details": {
+          "mode": "rfsim",
+          "policy": {
+            "jpeg_quality": 61,
+            "keyframe_rate_hz": 0.9,
+            "orb_max_keyframes_per_second": 9,
+            "priority": 85,
+            "publish_rate_hz": 8.4,
+            "quality": "moderate",
+            "resolution_scale": 0.75,
+            "slice_action": "hold",
+            "voxel_leaf_size_m": 0.215
+          },
+          "slice_command": {
+            "action": "hold",
+            "max_latency_ms": 70.0,
+            "min_prb_pct": 75.5,
+            "priority": 85,
+            "reason": "slam:moderate",
+            "task_type": "visual_slam",
+            "timestamp": 3.0,
+            "ue_id": "ue-slam-01"
+          },
+          "snapshot": {
+            "jitter_ms": 14.0,
+            "latency_ms": 44.7,
+            "packet_loss_pct": 3.2,
+            "prb_allocation_pct": 30.0,
+            "rsrp_dbm": -95.0,
+            "snr_db": 4.0,
+            "throughput_mbps": 4.67
+          },
+          "timestamp": 3.0
+        },
+        "name": "runtime_step",
+        "timestamp": 3.0
+      },
+      {
+        "details": {
+          "mode": "rfsim",
+          "policy": {
+            "jpeg_quality": 61,
+            "keyframe_rate_hz": 0.9,
+            "orb_max_keyframes_per_second": 9,
+            "priority": 85,
+            "publish_rate_hz": 8.4,
+            "quality": "moderate",
+            "resolution_scale": 0.75,
+            "slice_action": "hold",
+            "voxel_leaf_size_m": 0.215
+          },
+          "slice_command": {
+            "action": "hold",
+            "max_latency_ms": 70.0,
+            "min_prb_pct": 75.5,
+            "priority": 85,
+            "reason": "slam:moderate",
+            "task_type": "visual_slam",
+            "timestamp": 4.0,
+            "ue_id": "ue-slam-01"
+          },
+          "snapshot": {
+            "jitter_ms": 14.0,
+            "latency_ms": 44.7,
+            "packet_loss_pct": 3.2,
+            "prb_allocation_pct": 30.0,
+            "rsrp_dbm": -92.0,
+            "snr_db": 5.0,
+            "throughput_mbps": 4.67
+          },
+          "timestamp": 4.0
+        },
+        "name": "runtime_step",
+        "timestamp": 4.0
+      },
+      {
+        "details": {
+          "mode": "rfsim",
+          "policy": {
+            "jpeg_quality": 78,
+            "keyframe_rate_hz": 1.14,
+            "orb_max_keyframes_per_second": 14,
+            "priority": 70,
+            "publish_rate_hz": 13.0,
+            "quality": "good",
+            "resolution_scale": 1.0,
+            "slice_action": "hold",
+            "voxel_leaf_size_m": 0.196
+          },
+          "slice_command": {
+            "action": "hold",
+            "max_latency_ms": 70.0,
+            "min_prb_pct": 71.0,
+            "priority": 70,
+            "reason": "slam:good",
+            "task_type": "visual_slam",
+            "timestamp": 5.0,
+            "ue_id": "ue-slam-01"
+          },
+          "snapshot": {
+            "jitter_ms": 8.0,
+            "latency_ms": 28.3,
+            "packet_loss_pct": 1.93,
+            "prb_allocation_pct": 60.0,
+            "rsrp_dbm": -86.0,
+            "snr_db": 9.0,
+            "throughput_mbps": 7.2
+          },
+          "timestamp": 5.0
+        },
+        "name": "runtime_step",
+        "timestamp": 5.0
+      },
+      {
+        "details": {
+          "mode": "rfsim",
+          "policy": {
+            "jpeg_quality": 95,
+            "keyframe_rate_hz": 1.39,
+            "orb_max_keyframes_per_second": 20,
+            "priority": 60,
+            "publish_rate_hz": 17.8,
+            "quality": "excellent",
+            "resolution_scale": 1.0,
+            "slice_action": "hold",
+            "voxel_leaf_size_m": 0.176
+          },
+          "slice_command": {
+            "action": "hold",
+            "max_latency_ms": 70.0,
+            "min_prb_pct": 68.0,
+            "priority": 60,
+            "reason": "slam:excellent",
+            "task_type": "visual_slam",
+            "timestamp": 6.0,
+            "ue_id": "ue-slam-01"
+          },
+          "snapshot": {
+            "jitter_ms": 4.3,
+            "latency_ms": 15.3,
+            "packet_loss_pct": 0.5,
+            "prb_allocation_pct": 90.0,
+            "rsrp_dbm": -79.0,
+            "snr_db": 15.0,
+            "throughput_mbps": 9.9
+          },
+          "timestamp": 6.0
+        },
+        "name": "runtime_step",
+        "timestamp": 6.0
+      },
+      {
+        "details": {
+          "mode": "rfsim",
+          "policy": {
+            "jpeg_quality": 61,
+            "keyframe_rate_hz": 0.9,
+            "orb_max_keyframes_per_second": 9,
+            "priority": 85,
+            "publish_rate_hz": 8.4,
+            "quality": "moderate",
+            "resolution_scale": 0.75,
+            "slice_action": "hold",
+            "voxel_leaf_size_m": 0.215
+          },
+          "slice_command": {
+            "action": "hold",
+            "max_latency_ms": 70.0,
+            "min_prb_pct": 75.5,
+            "priority": 85,
+            "reason": "slam:moderate",
+            "task_type": "visual_slam",
+            "timestamp": 7.0,
+            "ue_id": "ue-slam-01"
+          },
+          "snapshot": {
+            "jitter_ms": 14.0,
+            "latency_ms": 44.7,
+            "packet_loss_pct": 3.2,
+            "prb_allocation_pct": 30.0,
+            "rsrp_dbm": -95.0,
+            "snr_db": 4.0,
+            "throughput_mbps": 4.67
+          },
+          "timestamp": 7.0
+        },
+        "name": "runtime_step",
+        "timestamp": 7.0
+      },
+      {
+        "details": {
+          "mode": "rfsim",
+          "policy": {
+            "jpeg_quality": 61,
+            "keyframe_rate_hz": 0.9,
+            "orb_max_keyframes_per_second": 9,
+            "priority": 85,
+            "publish_rate_hz": 8.4,
+            "quality": "moderate",
+            "resolution_scale": 0.75,
+            "slice_action": "hold",
+            "voxel_leaf_size_m": 0.215
+          },
+          "slice_command": {
+            "action": "hold",
+            "max_latency_ms": 70.0,
+            "min_prb_pct": 75.5,
+            "priority": 85,
+            "reason": "slam:moderate",
+            "task_type": "visual_slam",
+            "timestamp": 8.0,
+            "ue_id": "ue-slam-01"
+          },
+          "snapshot": {
+            "jitter_ms": 14.0,
+            "latency_ms": 44.7,
+            "packet_loss_pct": 3.2,
+            "prb_allocation_pct": 30.0,
+            "rsrp_dbm": -92.0,
+            "snr_db": 5.0,
+            "throughput_mbps": 4.67
+          },
+          "timestamp": 8.0
+        },
+        "name": "runtime_step",
+        "timestamp": 8.0
+      },
+      {
+        "details": {
+          "mode": "rfsim",
+          "policy": {
+            "jpeg_quality": 78,
+            "keyframe_rate_hz": 1.14,
+            "orb_max_keyframes_per_second": 14,
+            "priority": 70,
+            "publish_rate_hz": 13.0,
+            "quality": "good",
+            "resolution_scale": 1.0,
+            "slice_action": "hold",
+            "voxel_leaf_size_m": 0.196
+          },
+          "slice_command": {
+            "action": "hold",
+            "max_latency_ms": 70.0,
+            "min_prb_pct": 71.0,
+            "priority": 70,
+            "reason": "slam:good",
+            "task_type": "visual_slam",
+            "timestamp": 9.0,
+            "ue_id": "ue-slam-01"
+          },
+          "snapshot": {
+            "jitter_ms": 8.0,
+            "latency_ms": 28.3,
+            "packet_loss_pct": 1.93,
+            "prb_allocation_pct": 60.0,
+            "rsrp_dbm": -86.0,
+            "snr_db": 9.0,
+            "throughput_mbps": 7.2
+          },
+          "timestamp": 9.0
+        },
+        "name": "runtime_step",
+        "timestamp": 9.0
+      }
+    ],
+    "last_step": {
+      "mode": "rfsim",
+      "policy": {
+        "jpeg_quality": 78,
+        "keyframe_rate_hz": 1.14,
+        "orb_max_keyframes_per_second": 14,
+        "priority": 70,
+        "publish_rate_hz": 13.0,
+        "quality": "good",
+        "resolution_scale": 1.0,
+        "slice_action": "hold",
+        "voxel_leaf_size_m": 0.196
+      },
+      "slice_command": {
+        "action": "hold",
+        "max_latency_ms": 70.0,
+        "min_prb_pct": 71.0,
+        "priority": 70,
+        "reason": "slam:good",
+        "task_type": "visual_slam",
+        "timestamp": 9.0,
+        "ue_id": "ue-slam-01"
+      },
+      "snapshot": {
+        "jitter_ms": 8.0,
+        "latency_ms": 28.3,
+        "packet_loss_pct": 1.93,
+        "prb_allocation_pct": 60.0,
+        "rsrp_dbm": -86.0,
+        "snr_db": 9.0,
+        "throughput_mbps": 7.2
+      },
+      "timestamp": 9.0
+    },
+    "mode": "rfsim",
+    "slice_commands": [
+      {
+        "action": "hold",
+        "max_latency_ms": 70.0,
+        "min_prb_pct": 75.5,
+        "priority": 85,
+        "reason": "slam:moderate",
+        "task_type": "visual_slam",
+        "timestamp": 1781824876.5353982,
+        "ue_id": "ue-slam-01"
+      },
+      {
+        "action": "hold",
+        "max_latency_ms": 70.0,
+        "min_prb_pct": 71.0,
+        "priority": 70,
+        "reason": "slam:good",
+        "task_type": "visual_slam",
+        "timestamp": 1.0,
+        "ue_id": "ue-slam-01"
+      },
+      {
+        "action": "hold",
+        "max_latency_ms": 70.0,
+        "min_prb_pct": 68.0,
+        "priority": 60,
+        "reason": "slam:excellent",
+        "task_type": "visual_slam",
+        "timestamp": 2.0,
+        "ue_id": "ue-slam-01"
+      },
+      {
+        "action": "hold",
+        "max_latency_ms": 70.0,
+        "min_prb_pct": 75.5,
+        "priority": 85,
+        "reason": "slam:moderate",
+        "task_type": "visual_slam",
+        "timestamp": 3.0,
+        "ue_id": "ue-slam-01"
+      },
+      {
+        "action": "hold",
+        "max_latency_ms": 70.0,
+        "min_prb_pct": 75.5,
+        "priority": 85,
+        "reason": "slam:moderate",
+        "task_type": "visual_slam",
+        "timestamp": 4.0,
+        "ue_id": "ue-slam-01"
+      },
+      {
+        "action": "hold",
+        "max_latency_ms": 70.0,
+        "min_prb_pct": 71.0,
+        "priority": 70,
+        "reason": "slam:good",
+        "task_type": "visual_slam",
+        "timestamp": 5.0,
+        "ue_id": "ue-slam-01"
+      },
+      {
+        "action": "hold",
+        "max_latency_ms": 70.0,
+        "min_prb_pct": 68.0,
+        "priority": 60,
+        "reason": "slam:excellent",
+        "task_type": "visual_slam",
+        "timestamp": 6.0,
+        "ue_id": "ue-slam-01"
+      },
+      {
+        "action": "hold",
+        "max_latency_ms": 70.0,
+        "min_prb_pct": 75.5,
+        "priority": 85,
+        "reason": "slam:moderate",
+        "task_type": "visual_slam",
+        "timestamp": 7.0,
+        "ue_id": "ue-slam-01"
+      },
+      {
+        "action": "hold",
+        "max_latency_ms": 70.0,
+        "min_prb_pct": 75.5,
+        "priority": 85,
+        "reason": "slam:moderate",
+        "task_type": "visual_slam",
+        "timestamp": 8.0,
+        "ue_id": "ue-slam-01"
+      },
+      {
+        "action": "hold",
+        "max_latency_ms": 70.0,
+        "min_prb_pct": 71.0,
+        "priority": 70,
+        "reason": "slam:good",
+        "task_type": "visual_slam",
+        "timestamp": 9.0,
+        "ue_id": "ue-slam-01"
+      }
+    ],
+    "task_state": {
+      "backlog": 0,
+      "criticality": 0.75,
+      "deadline_ms": 70.0,
+      "metadata": {},
+      "task_id": "slam",
+      "task_type": "visual_slam"
+    }
+  },
+  "slam": {
+    "observations": [
+      {
+        "estimated_bytes": 1440,
+        "feature_count": 60,
+        "keyframe": true,
+        "map_points": 60,
+        "pose_error_m": 0.0186,
+        "sequence": 0
+      },
+      {
+        "estimated_bytes": 240,
+        "feature_count": 24,
+        "keyframe": false,
+        "map_points": 63,
+        "pose_error_m": 0.0201,
+        "sequence": 1
+      },
+      {
+        "estimated_bytes": 240,
+        "feature_count": 24,
+        "keyframe": false,
+        "map_points": 66,
+        "pose_error_m": 0.0216,
+        "sequence": 2
+      },
+      {
+        "estimated_bytes": 1440,
+        "feature_count": 60,
+        "keyframe": true,
+        "map_points": 126,
+        "pose_error_m": 0.0219,
+        "sequence": 4
+      },
+      {
+        "estimated_bytes": 240,
+        "feature_count": 24,
+        "keyframe": false,
+        "map_points": 129,
+        "pose_error_m": 0.0234,
+        "sequence": 5
+      },
+      {
+        "estimated_bytes": 240,
+        "feature_count": 24,
+        "keyframe": false,
+        "map_points": 132,
+        "pose_error_m": 0.0249,
+        "sequence": 6
+      },
+      {
+        "estimated_bytes": 200,
+        "feature_count": 20,
+        "keyframe": false,
+        "map_points": 134,
+        "pose_error_m": 0.0284,
+        "sequence": 8
+      },
+      {
+        "estimated_bytes": 1752,
+        "feature_count": 73,
+        "keyframe": true,
+        "map_points": 207,
+        "pose_error_m": 0.0265,
+        "sequence": 9
+      },
+      {
+        "estimated_bytes": 240,
+        "feature_count": 24,
+        "keyframe": false,
+        "map_points": 210,
+        "pose_error_m": 0.028,
+        "sequence": 10
+      },
+      {
+        "estimated_bytes": 200,
+        "feature_count": 20,
+        "keyframe": false,
+        "map_points": 212,
+        "pose_error_m": 0.0315,
+        "sequence": 12
+      },
+      {
+        "estimated_bytes": 240,
+        "feature_count": 24,
+        "keyframe": false,
+        "map_points": 215,
+        "pose_error_m": 0.033,
+        "sequence": 13
+      },
+      {
+        "estimated_bytes": 1752,
+        "feature_count": 73,
+        "keyframe": true,
+        "map_points": 288,
+        "pose_error_m": 0.0306,
+        "sequence": 14
+      },
+      {
+        "estimated_bytes": 200,
+        "feature_count": 20,
+        "keyframe": false,
+        "map_points": 290,
+        "pose_error_m": 0.0341,
+        "sequence": 16
+      },
+      {
+        "estimated_bytes": 240,
+        "feature_count": 24,
+        "keyframe": false,
+        "map_points": 293,
+        "pose_error_m": 0.0356,
+        "sequence": 17
+      },
+      {
+        "estimated_bytes": 240,
+        "feature_count": 24,
+        "keyframe": false,
+        "map_points": 296,
+        "pose_error_m": 0.0371,
+        "sequence": 18
+      }
+    ],
+    "summary": {
+      "bytes": 8904.0,
+      "frames": 15.0,
+      "keyframes": 4.0,
+      "mean_pose_error_m": 0.0277
+    }
+  },
+  "v2x": {
+    "observations": [
+      {
+        "allow_motion": true,
+        "criticality": 0.375,
+        "obstacle_distance_m": 5.0,
+        "reason": "clear",
+        "requested_speed_mps": 1.0,
+        "sequence": 0,
+        "target_speed_mps": 1.0
+      },
+      {
+        "allow_motion": true,
+        "criticality": 0.625,
+        "obstacle_distance_m": 3.0,
+        "reason": "clear",
+        "requested_speed_mps": 1.0,
+        "sequence": 1,
+        "target_speed_mps": 1.0
+      },
+      {
+        "allow_motion": true,
+        "criticality": 0.725,
+        "obstacle_distance_m": 2.2,
+        "reason": "slow_zone",
+        "requested_speed_mps": 1.0,
+        "sequence": 2,
+        "target_speed_mps": 0.3
+      },
+      {
+        "allow_motion": true,
+        "criticality": 0.825,
+        "obstacle_distance_m": 1.4,
+        "reason": "slow_zone",
+        "requested_speed_mps": 1.0,
+        "sequence": 3,
+        "target_speed_mps": 0.3
+      },
+      {
+        "allow_motion": false,
+        "criticality": 0.9,
+        "obstacle_distance_m": 0.8,
+        "reason": "emergency_stop",
+        "requested_speed_mps": 1.0,
+        "sequence": 4,
+        "target_speed_mps": 0.0
+      },
+      {
+        "allow_motion": true,
+        "criticality": 0.688,
+        "obstacle_distance_m": 2.5,
+        "reason": "slow_zone",
+        "requested_speed_mps": 1.0,
+        "sequence": 5,
+        "target_speed_mps": 0.3
+      },
+      {
+        "allow_motion": true,
+        "criticality": 0.438,
+        "obstacle_distance_m": 4.5,
+        "reason": "clear",
+        "requested_speed_mps": 1.0,
+        "sequence": 6,
+        "target_speed_mps": 1.0
+      }
+    ],
+    "summary": {
+      "samples": 7.0,
+      "slowdowns": 3.0,
+      "stops": 1.0
+    }
+  }
+}

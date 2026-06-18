@@ -1,7 +1,7 @@
 """Adaptation policies used by MobileROS runtime and experiments."""
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from enum import Enum
 from typing import Mapping
 
@@ -145,3 +145,50 @@ def policy_from_mapping(data: Mapping[str, float], task_criticality: float = 0.5
         rsrp_dbm=float(data.get("rsrp_dbm", -95.0)),
     )
     return build_stream_policy(snapshot, task_criticality=task_criticality)
+
+
+def _enum_value(enum_cls, value, default):
+    if isinstance(value, enum_cls):
+        return value
+    if value is None:
+        return default
+    text = str(value)
+    if "." in text:
+        text = text.rsplit(".", 1)[-1]
+    text = text.lower()
+    for item in enum_cls:
+        if item.value == text or item.name.lower() == text:
+            return item
+    return default
+
+
+def stream_policy_to_mapping(policy: StreamPolicy) -> dict:
+    data = asdict(policy)
+    data["quality"] = policy.quality.value
+    data["slice_action"] = policy.slice_action.value
+    return data
+
+
+def stream_policy_from_mapping(data: Mapping[str, object]) -> StreamPolicy:
+    default = build_stream_policy(
+        NetworkSnapshot(
+            throughput_mbps=10.0,
+            latency_ms=30.0,
+            packet_loss_pct=0.0,
+            jitter_ms=2.0,
+            prb_allocation_pct=70.0,
+        )
+    )
+    return StreamPolicy(
+        quality=_enum_value(NetworkQuality, data.get("quality"), default.quality),
+        slice_action=_enum_value(SliceAction, data.get("slice_action"), default.slice_action),
+        keyframe_rate_hz=float(data.get("keyframe_rate_hz", default.keyframe_rate_hz)),
+        orb_max_keyframes_per_second=int(
+            data.get("orb_max_keyframes_per_second", default.orb_max_keyframes_per_second)
+        ),
+        jpeg_quality=int(data.get("jpeg_quality", default.jpeg_quality)),
+        resolution_scale=float(data.get("resolution_scale", default.resolution_scale)),
+        voxel_leaf_size_m=float(data.get("voxel_leaf_size_m", default.voxel_leaf_size_m)),
+        publish_rate_hz=float(data.get("publish_rate_hz", default.publish_rate_hz)),
+        priority=int(data.get("priority", default.priority)),
+    )

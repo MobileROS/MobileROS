@@ -15,6 +15,7 @@ Software replay must not be reported as a new hardware experiment.
 ```bash
 python3 -m unittest discover -s tests
 python3 benchmarks/run_replay.py --mode replay
+python3 tools/mobileros_cli.py --case all --frames 20 --output benchmarks/results/cli_cases_report.json
 python3 oai_integration/scripts/export_jsonl_to_udp.py --input benchmarks/oai_rfsim_metrics.jsonl
 ```
 
@@ -45,3 +46,16 @@ Recommended open-source task stack:
 
 MobileROS modifies source-side data generation and scheduling policy; the SLAM
 frontend should remain unmodified where possible.
+
+## Case implementation boundary
+
+- `mobile_ros/tasks/visual_slam.py` implements the MobileROS Elastic Stream
+  adapter and provides the ORB-SLAM3 command builder.
+- `mobile_ros/tasks/lidar_perception.py` implements Adaptive Voxel filtering
+  and provides the OpenPCDet command builder.
+- `mobile_ros/tasks/v2x.py` implements criticality-driven safety gating.
+- `mobile_ros/tasks/multi_robot.py` implements map-fragment scheduling.
+- `mobile_ros/tasks/partition.py` implements local/edge partition decisions.
+
+These are software adapters and control paths. New hardware measurements must
+come from OAI RF simulator or USRP/OAI logs and be compared in hardware mode.

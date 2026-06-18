@@ -9,7 +9,10 @@ setup(
     data_files=[
         ("share/ament_index/resource_index/packages", [f"resource/{package_name}"]),
         (f"share/{package_name}", ["package.xml"]),
-        (f"share/{package_name}/launch", ["launch/slam_elastic_stream.launch.py"]),
+        (
+            f"share/{package_name}/launch",
+            ["launch/slam_elastic_stream.launch.py", "launch/full_stack.launch.py"],
+        ),
     ],
     install_requires=["setuptools"],
     zip_safe=True,
@@ -21,6 +24,11 @@ setup(
         "console_scripts": [
             "mobile_ros_hub = mobile_ros_ros2.mobile_ros_hub_node:main",
             "camera_cell = mobile_ros_ros2.camera_cell_node:main",
+            "slam_task = mobile_ros_ros2.slam_task_node:main",
+            "lidar_cell = mobile_ros_ros2.lidar_cell_node:main",
+            "slice_client = mobile_ros_ros2.slice_client_node:main",
+            "v2x_safety = mobile_ros_ros2.v2x_safety_node:main",
+            "partition_node = mobile_ros_ros2.partition_node:main",
         ],
     },
 )

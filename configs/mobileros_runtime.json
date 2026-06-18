@@ -1,0 +1,29 @@
+{
+  "metrics": {
+    "source": "jsonl",
+    "jsonl": "benchmarks/oai_rfsim_metrics.jsonl",
+    "udp_bind": "127.0.0.1:62000"
+  },
+  "slice": {
+    "udp_target": "127.0.0.1:63000",
+    "default_ue_id": "ue-0"
+  },
+  "tasks": {
+    "visual_slam": {
+      "input_topic": "/camera/image_raw",
+      "mobile_topic": "/camera/mobile_ros/image",
+      "criticality": 0.75,
+      "deadline_ms": 70.0
+    },
+    "lidar_perception": {
+      "input_topic": "/points_raw",
+      "mobile_topic": "/points/mobile_ros",
+      "criticality": 0.55,
+      "deadline_ms": 80.0
+    },
+    "v2x_safety": {
+      "criticality": 0.9,
+      "deadline_ms": 20.0
+    }
+  }
+}

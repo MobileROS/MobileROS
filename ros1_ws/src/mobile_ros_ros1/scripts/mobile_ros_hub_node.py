@@ -13,7 +13,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from mobile_ros.oai import JsonlMetricProvider, UdpMetricProvider
-from mobile_ros.policies import policy_from_mapping
+from mobile_ros.policies import policy_from_mapping, stream_policy_to_mapping
 
 
 class MobileRosHubNode:
@@ -41,7 +41,7 @@ class MobileRosHubNode:
             record = self.provider.read_record()
             policy = policy_from_mapping(record.as_policy_mapping(), self.task_criticality)
             self.metrics_pub.publish(json.dumps(record.__dict__, sort_keys=True))
-            self.policy_pub.publish(json.dumps(policy.__dict__, sort_keys=True, default=str))
+            self.policy_pub.publish(json.dumps(stream_policy_to_mapping(policy), sort_keys=True))
             self.rate.sleep()
 
 

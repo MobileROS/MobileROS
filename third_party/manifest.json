@@ -1,0 +1,17 @@
+{
+  "orb_slam3": {
+    "url": "https://github.com/UZ-SLAMLab/ORB_SLAM3.git",
+    "commit_checked": "4452a3c6e5b90e5544bf6e775e2e70a3daabbfd7",
+    "use": "visual SLAM task backend; MobileROS wraps image/keyframe flow without modifying ORB-SLAM3"
+  },
+  "openpcdet": {
+    "url": "https://github.com/open-mmlab/OpenPCDet.git",
+    "commit_checked": "233f849d721105e89e42d3c0d4be656dcde0fde9",
+    "use": "LiDAR perception backend; MobileROS performs adaptive voxel filtering before perception"
+  },
+  "openairinterface5g": {
+    "url": "https://gitlab.eurecom.fr/oai/openairinterface5g.git",
+    "version_target": "v2.1.0",
+    "use": "5G gNB/UE, RF simulator, USRP B210/X410 radio metrics and scheduler integration"
+  }
+}

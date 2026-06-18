@@ -22,8 +22,17 @@ the dashboard:
 
 ```bash
 python3 oai_integration/scripts/export_jsonl_to_udp.py --input benchmarks/oai_rfsim_metrics.jsonl
-ros2 launch mobile_ros_ros2 slam_elastic_stream.launch.py metrics_source:=udp
+ros2 launch mobile_ros_ros2 full_stack.launch.py metrics_source:=udp
 python3 tools/slam_network_dashboard.py
 ```
 
 Replace the JSONL exporter with the OAI UDP hook for hardware recordings.
+
+The ROS full-stack launch exposes:
+
+- `/camera/mobile_ros/image` for the adapted SLAM input.
+- `/mobile_ros/slam_features` for keyframe/features status.
+- `/points/mobile_ros` and `/mobile_ros/lidar_stats` for LiDAR adaptation.
+- `/mobile_ros/slice_command` for communication-resource changes.
+- `/mobile_ros/v2x_decision` and `/cmd_vel/mobile_ros` for safety behavior.
+- `/mobile_ros/partition_decision` for edge/local task placement.

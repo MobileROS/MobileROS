@@ -10,17 +10,24 @@ hardware and no-hardware validation paths.
 - Shared Python runtime in `mobile_ros/`
   - OAI metric providers: JSONL replay, UDP, shared memory
   - Elastic Stream, Adaptive Voxel, and slice-promotion policies
+  - Runtime orchestration, slice clients, typed frame/task data, and task cells
+  - Task adapters for visual SLAM, LiDAR perception, V2X safety,
+    multi-robot map sharing, and partitioned execution
   - Paper-baseline replay and comparison helpers
 - ROS 1 workspace in `ros1_ws/`
   - Catkin package for Noetic
-  - Camera Cell wrapper and MobileROS Hub node
+  - Hub, Camera, SLAM, LiDAR, slice client, V2X safety, and partition nodes
 - ROS 2 workspace in `ros2_ws/`
   - Ament Python package for Foxy/Humble
-  - Matching Camera Cell wrapper and Hub node
+  - Matching Hub, Camera, SLAM, LiDAR, slice client, V2X safety, and partition nodes
 - OAI integration files in `oai_integration/`
   - RF simulator run script
   - UDP metric export hook
+  - Hook copy helper for OAI scheduler integration
   - USRP B210/X410 deployment notes
+- Third-party setup in `third_party/`
+  - ORB-SLAM3 and OpenPCDet install scripts
+  - OpenAirInterface version target and integration manifest
 - Reproducibility assets in `benchmarks/`
   - Paper table baselines
   - Deterministic replay runner
@@ -44,6 +51,7 @@ reports.
 ```bash
 python3 -m unittest discover -s tests
 python3 benchmarks/run_replay.py --mode replay
+python3 tools/mobileros_cli.py --case all --frames 20 --output benchmarks/results/cli_cases_report.json
 python3 tools/slam_network_dashboard.py
 ```
 
@@ -56,11 +64,12 @@ visualization.
 cd ros1_ws
 catkin_make
 source devel/setup.bash
-roslaunch mobile_ros_ros1 slam_elastic_stream.launch metrics_jsonl:=$(pwd)/../benchmarks/oai_rfsim_metrics.jsonl
+roslaunch mobile_ros_ros1 full_stack.launch metrics_jsonl:=$(pwd)/../benchmarks/oai_rfsim_metrics.jsonl
 ```
 
-The camera wrapper republishes `/camera/image_raw` to
-`/camera/mobile_ros/image` according to MobileROS policy updates.
+The full stack publishes MobileROS policy, adapted camera frames, SLAM feature
+packets, adapted point clouds, slice commands, V2X safety commands, and
+partition decisions.
 
 ## ROS 2
 
@@ -68,10 +77,30 @@ The camera wrapper republishes `/camera/image_raw` to
 cd ros2_ws
 colcon build --symlink-install
 source install/setup.bash
-ros2 launch mobile_ros_ros2 slam_elastic_stream.launch.py metrics_jsonl:=$(pwd)/../benchmarks/oai_rfsim_metrics.jsonl
+ros2 launch mobile_ros_ros2 full_stack.launch.py metrics_jsonl:=$(pwd)/../benchmarks/oai_rfsim_metrics.jsonl
 ```
 
 The ROS 2 wrapper uses the same policy JSON and topic layout as ROS 1.
+
+## Task backends
+
+The runnable adapters are in `mobile_ros/tasks/`. Heavy robotics backends are
+not vendored:
+
+- Visual SLAM: ORB-SLAM3 from `https://github.com/UZ-SLAMLab/ORB_SLAM3.git`.
+- LiDAR perception: OpenPCDet from `https://github.com/open-mmlab/OpenPCDet.git`.
+- Radio/network: OpenAirInterface v2.1.0 with RF simulator or USRP B210/X410.
+
+Install helpers:
+
+```bash
+bash third_party/install_orb_slam3.sh
+bash third_party/install_openpcdet.sh
+```
+
+The adapters keep MobileROS responsible for network-aware frame rates,
+resolution, keyframe flow, voxel size, partitioning, and slice priority. The
+external task libraries remain the task backends.
 
 ## OpenAirInterface RF simulator
 
